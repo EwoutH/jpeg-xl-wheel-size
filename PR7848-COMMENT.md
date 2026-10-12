@@ -4,6 +4,8 @@ I tested several ways to reduce this PR's wheel-size impact. **Decoder-only link
 
 Each platform's reference is a wheel built from the **same Pillow commit and dependency recipes, with JPEG XL disabled**. The percentages below are growth over that reference, not changes relative to another Pillow release.
 
+![Added wheel download size over no-jxl. On Linux and macOS, growth falls from roughly 25–30% with the PR to 5–6% with decoder-only linking, MinSizeRel and LTO. Windows falls from 8.5% to 6.9%.](https://raw.githubusercontent.com/EwoutH/jpeg-xl-wheel-size/master/figures/jpeg-xl-overhead.png)
+
 | Platform | `no-jxl` wheel | PR: full libjxl | Decoder only | + MinSizeRel | + LTO |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | Linux x86_64 | 6.971 MiB | +29.8% | +10.1% | +6.6% | +5.5% |
