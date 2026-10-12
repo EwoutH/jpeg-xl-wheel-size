@@ -31,7 +31,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           repository: EwoutH/Pillow
-          ref: cfb53fcaecfdca559685ae826987467e9f529fa6
+          ref: ed3f3ec0a67a41beb0331611066ea3283e343163
           path: Pillow
           submodules: true
           persist-credentials: false
@@ -128,7 +128,7 @@ jobs:
         if: matrix.variant != 'no-jxl'
         with:
           repository: EwoutH/Pillow
-          ref: cfb53fcaecfdca559685ae826987467e9f529fa6
+          ref: ed3f3ec0a67a41beb0331611066ea3283e343163
           path: Pillow
           submodules: true
           persist-credentials: false
@@ -209,7 +209,7 @@ jobs:
       - uses: actions/checkout@v7
         with:
           repository: EwoutH/Pillow
-          ref: cfb53fcaecfdca559685ae826987467e9f529fa6
+          ref: ed3f3ec0a67a41beb0331611066ea3283e343163
           path: Pillow
           persist-credentials: false
       - uses: actions/setup-python@v7
