@@ -8,6 +8,9 @@ on:
       variants:
         description: JSON list of variants
         default: '["no-jxl", "pr", "decoder", "minsize", "lto", "scalar"]'
+      dependency_run:
+        description: Optional prior run ID with successful dependency artifacts for selected platforms
+        default: ''
 permissions:
   contents: read
 jobs:
@@ -31,3 +34,4 @@ jobs:
     with:
       target: ${{ toJSON(matrix) }}
       variants: ${{ inputs.variants }}
+      dependency_run: ${{ inputs.dependency_run }}

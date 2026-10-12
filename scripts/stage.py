@@ -13,14 +13,15 @@ parser.add_argument("stage", choices=("common", "variant"))
 args = parser.parse_args()
 root = args.root
 shutil.copyfile(Path(__file__).with_name("deps.py"), root / "size_experiment/deps.py")
-commands = ['@echo off', 'call winbuild\\build\\build_env.cmd', 'if errorlevel 1 exit /b 1']
+commands = ['@echo off', 'cd /d "%~dp0.."', 'call winbuild\\build\\build_env.cmd', 'if errorlevel 1 exit /b 1']
 if args.stage == "common":
     commands += ['call winbuild\\build\\build_dep_all.cmd', 'if errorlevel 1 exit /b 1',
-                 'python size_experiment\\deps.py save winbuild\\build --windows']
+                 'cd /d "%~dp0.."', 'python size_experiment\\deps.py save winbuild\\build --windows']
 else:
     commands += ['python size_experiment\\deps.py restore winbuild\\build --windows', 'if errorlevel 1 exit /b 1',
                  'call winbuild\\build\\build_dep_highway.cmd', 'if errorlevel 1 exit /b 1',
-                 'call winbuild\\build\\build_dep_libjxl.cmd', 'if errorlevel 1 exit /b 1']
+                 'cd /d "%~dp0.."', 'call winbuild\\build\\build_dep_libjxl.cmd', 'if errorlevel 1 exit /b 1',
+                 'cd /d "%~dp0.."']
 (root / "size_experiment/windows_deps.cmd").write_text('\n'.join(commands) + '\n')
 native = root / ".github/workflows/wheels-dependencies.sh"
 win = root / "winbuild/build_prepare.py"

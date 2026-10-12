@@ -8,13 +8,18 @@ on:
       variants:
         required: true
         type: string
+      dependency_run:
+        type: string
+        default: ''
 permissions:
   contents: read
+  actions: read
 env:
   CIBW_PLATFORM: ${{ fromJSON(inputs.target).platform }}
   CIBW_ARCHS: ${{ fromJSON(inputs.target).arch }}
   CIBW_BUILD: ${{ fromJSON(inputs.target).build }}
   CIBW_TEST_SKIP: '*'
+  CIBW_ENVIRONMENT_LINUX: EXPERIMENT_BUNDLE=/host${{ github.workspace }}/Pillow/dependency-bundle
   MACOSX_DEPLOYMENT_TARGET: ${{ fromJSON(inputs.target).arch == 'arm64' && '11.0' || '10.13' }}
 jobs:
   common:
@@ -48,31 +53,40 @@ jobs:
           fi
       - uses: actions/cache@v4
         id: cache
+        if: inputs.dependency_run == ''
         with:
           path: Pillow/dependency-bundle
           key: deps-v1-${{ fromJSON(inputs.target).name }}-${{ hashFiles('toolchain.txt', 'Pillow/.github/dependencies.json', 'Pillow/.github/workflows/wheels-dependencies.sh', 'Pillow/winbuild/build_prepare.py', 'Pillow/.ci/requirements-cibw.txt', 'Pillow/wheels/multibuild/**', 'scripts/stage.py', 'scripts/deps.py') }}
+      - name: Reuse saved dependency artifact
+        if: inputs.dependency_run != ''
+        uses: actions/download-artifact@v4
+        with:
+          name: dependencies-${{ fromJSON(inputs.target).name }}
+          path: Pillow/dependency-bundle
+          run-id: ${{ inputs.dependency_run }}
+          github-token: ${{ github.token }}
       - name: Prepare common stage
-        if: steps.cache.outputs.cache-hit != 'true'
+        if: inputs.dependency_run == '' && steps.cache.outputs.cache-hit != 'true'
         run: |
           python scripts/prepare.py Pillow no-jxl
           python scripts/stage.py Pillow common
           python -m pip install -r Pillow/.ci/requirements-cibw.txt
       - name: Prepare Windows
-        if: steps.cache.outputs.cache-hit != 'true' && runner.os == 'Windows'
+        if: inputs.dependency_run == '' && steps.cache.outputs.cache-hit != 'true' && runner.os == 'Windows'
         shell: pwsh
         run: |
           choco install nasm --no-progress -y
           "C:\Program Files\NASM" | Out-File -FilePath $env:GITHUB_PATH -Append
           python Pillow/winbuild/build_prepare.py --no-imagequant --architecture=AMD64
       - name: Build common dependencies and baseline wheel (Unix)
-        if: steps.cache.outputs.cache-hit != 'true' && runner.os != 'Windows'
+        if: inputs.dependency_run == '' && steps.cache.outputs.cache-hit != 'true' && runner.os != 'Windows'
         working-directory: Pillow
         env:
           CIBW_CONFIG_SETTINGS: raqm=enable raqm=vendor fribidi=vendor imagequant=disable jpegxl=disable
           CIBW_CONFIG_SETTINGS_MACOS: raqm=enable raqm=vendor fribidi=vendor imagequant=disable platform-guessing=disable jpegxl=disable
         run: python -m cibuildwheel --output-dir dependency-bundle/wheels
       - name: Build common dependencies and baseline wheel (Windows)
-        if: steps.cache.outputs.cache-hit != 'true' && runner.os == 'Windows'
+        if: inputs.dependency_run == '' && steps.cache.outputs.cache-hit != 'true' && runner.os == 'Windows'
         shell: cmd
         working-directory: Pillow
         env:
