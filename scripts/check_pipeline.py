@@ -26,7 +26,7 @@ with tempfile.TemporaryDirectory(prefix="jxl-pipeline-") as temp:
             if stage == "common":
                 assert "build_jpegxl" not in body
             else:
-                assert body.strip() == "build_jpegxl\n}"
+                assert body.strip() == "install_rsync\n    build_jpegxl\n}"
                 assert "pillow-depends/archive/main.zip" not in native
                 assert "deps.py\" restore" in native
                 assert "-DHWY_ENABLE_TESTS=OFF" in native

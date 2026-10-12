@@ -39,7 +39,9 @@ else:
     text = text[:highway_start] + highway + text[highway_end:]
     start = text.index("function build {\n")
     end = text.index("\nfunction create_meson_cross_config", start)
-    text = text[:start] + "function build {\n    build_jpegxl\n}\n" + text[end:]
+    # On a fresh Linux container, fetch_unpack installs rsync and writes package
+    # manager output to stdout. Do this before capturing its directory result.
+    text = text[:start] + "function build {\n    install_rsync\n    build_jpegxl\n}\n" + text[end:]
     start = text.index("if [[ ! -d $WORKDIR/pillow-depends-main ]]; then\n")
     end = text.index('\nif [[ -n "$IS_MACOS" ]]; then', start)
     text = text[:start] + 'python3 "$PROJECTDIR/size_experiment/deps.py" restore "$BUILD_PREFIX"\n' + text[end:]
