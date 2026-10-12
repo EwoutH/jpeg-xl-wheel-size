@@ -1,4 +1,4 @@
-name: Wheel size experiment
+name: Legacy uncached experiment (use staged workflow)
 on:
   workflow_dispatch:
     inputs:

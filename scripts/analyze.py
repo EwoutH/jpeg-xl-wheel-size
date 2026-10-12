@@ -42,6 +42,10 @@ def main():
     lines += ["", "## Decoding checks", "", "The workflow asserts JPEG XL availability and runs selftest plus the JPEG XL, JPEG and PNG tests. Pixel hashes below compare each variant against PR on the same architecture. A hash difference needs investigation; matching hashes cover these samples only.", ""]
     verification = {}
     for path in args.artifacts.rglob("verification.json"):
+        result = json.loads(path.read_text())
+        if result.get("platform"):
+            verification[(result["platform"], result["variant"])] = result
+            continue
         parent = next((p for p in path.parents if (p / "sizes.json").exists()), None)
         if parent:
             row = json.loads((parent / "sizes.json").read_text())[0]

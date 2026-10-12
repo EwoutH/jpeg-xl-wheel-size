@@ -1,0 +1,221 @@
+name: Cached platform builds
+on:
+  workflow_call:
+    inputs:
+      target:
+        required: true
+        type: string
+      variants:
+        required: true
+        type: string
+permissions:
+  contents: read
+env:
+  CIBW_PLATFORM: ${{ fromJSON(inputs.target).platform }}
+  CIBW_ARCHS: ${{ fromJSON(inputs.target).arch }}
+  CIBW_BUILD: ${{ fromJSON(inputs.target).build }}
+  CIBW_TEST_SKIP: '*'
+  MACOSX_DEPLOYMENT_TARGET: ${{ fromJSON(inputs.target).arch == 'arm64' && '11.0' || '10.13' }}
+jobs:
+  common:
+    name: Common dependencies (${{ fromJSON(inputs.target).name }})
+    runs-on: ${{ fromJSON(inputs.target).os }}
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: olokelo/Pillow
+          ref: d00ba3a89faabd31fd92c3b506c86557da8c0a0b
+          path: Pillow
+          submodules: true
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Identify toolchain and pin Linux container
+        shell: bash
+        run: |
+          echo "$ImageVersion" > toolchain.txt
+          if [ "$RUNNER_OS" = Linux ]; then
+            image=quay.io/pypa/manylinux_2_28_${{ fromJSON(inputs.target).arch }}
+            docker pull "$image"
+            docker inspect --format '{{index .RepoDigests 0}}' "$image" > image.ref
+            cat image.ref >> toolchain.txt
+            echo "CIBW_MANYLINUX_${{ fromJSON(inputs.target).arch == 'x86_64' && 'X86_64' || 'AARCH64' }}_IMAGE=$(cat image.ref)" >> "$GITHUB_ENV"
+          else
+            echo native > image.ref
+          fi
+      - uses: actions/cache@v4
+        id: cache
+        with:
+          path: Pillow/dependency-bundle
+          key: deps-v1-${{ fromJSON(inputs.target).name }}-${{ hashFiles('toolchain.txt', 'Pillow/.github/dependencies.json', 'Pillow/.github/workflows/wheels-dependencies.sh', 'Pillow/winbuild/build_prepare.py', 'Pillow/.ci/requirements-cibw.txt', 'Pillow/wheels/multibuild/**', 'scripts/stage.py', 'scripts/deps.py') }}
+      - name: Prepare common stage
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          python scripts/prepare.py Pillow no-jxl
+          python scripts/stage.py Pillow common
+          python -m pip install -r Pillow/.ci/requirements-cibw.txt
+      - name: Prepare Windows
+        if: steps.cache.outputs.cache-hit != 'true' && runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install nasm --no-progress -y
+          "C:\Program Files\NASM" | Out-File -FilePath $env:GITHUB_PATH -Append
+          python Pillow/winbuild/build_prepare.py --no-imagequant --architecture=AMD64
+      - name: Build common dependencies and baseline wheel (Unix)
+        if: steps.cache.outputs.cache-hit != 'true' && runner.os != 'Windows'
+        working-directory: Pillow
+        env:
+          CIBW_CONFIG_SETTINGS: raqm=enable raqm=vendor fribidi=vendor imagequant=disable jpegxl=disable
+          CIBW_CONFIG_SETTINGS_MACOS: raqm=enable raqm=vendor fribidi=vendor imagequant=disable platform-guessing=disable jpegxl=disable
+        run: python -m cibuildwheel --output-dir dependency-bundle/wheels
+      - name: Build common dependencies and baseline wheel (Windows)
+        if: steps.cache.outputs.cache-hit != 'true' && runner.os == 'Windows'
+        shell: cmd
+        working-directory: Pillow
+        env:
+          CIBW_CONFIG_SETTINGS: raqm=enable raqm=vendor fribidi=vendor imagequant=disable jpegxl=disable
+          CIBW_BEFORE_ALL: '{package}\size_experiment\windows_deps.cmd'
+        run: |
+          call winbuild\build\build_env.cmd
+          if errorlevel 1 exit /b 1
+          python -m cibuildwheel --output-dir dependency-bundle\wheels
+      - name: Record bundle provenance
+        shell: bash
+        run: |
+          cp image.ref toolchain.txt Pillow/dependency-bundle/
+          git -C Pillow rev-parse HEAD > Pillow/dependency-bundle/pillow-commit.txt
+          git -C Pillow diff > Pillow/dependency-bundle/common.patch
+      - uses: actions/upload-artifact@v4
+        if: always() && hashFiles('Pillow/dependency-bundle/deps.tar') != ''
+        with:
+          name: dependencies-${{ fromJSON(inputs.target).name }}
+          path: Pillow/dependency-bundle
+          if-no-files-found: error
+          compression-level: 1
+          retention-days: 14
+  variants:
+    name: Build ${{ matrix.variant }} (${{ fromJSON(inputs.target).name }})
+    needs: common
+    runs-on: ${{ fromJSON(inputs.target).os }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: ${{ fromJSON(inputs.variants) }}
+    env:
+      CIBW_CONFIG_SETTINGS: raqm=enable raqm=vendor fribidi=vendor imagequant=disable jpegxl=enable
+      CIBW_CONFIG_SETTINGS_MACOS: raqm=enable raqm=vendor fribidi=vendor imagequant=disable platform-guessing=disable jpegxl=enable
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        if: matrix.variant != 'no-jxl'
+        with:
+          repository: olokelo/Pillow
+          ref: d00ba3a89faabd31fd92c3b506c86557da8c0a0b
+          path: Pillow
+          submodules: true
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/download-artifact@v4
+        with:
+          name: dependencies-${{ fromJSON(inputs.target).name }}
+          path: Pillow/dependency-bundle
+      - name: Reuse baseline wheel
+        if: matrix.variant == 'no-jxl'
+        shell: bash
+        run: |
+          mkdir -p wheelhouse
+          cp Pillow/dependency-bundle/wheels/*.whl wheelhouse/
+      - name: Prepare variant
+        if: matrix.variant != 'no-jxl'
+        run: |
+          python scripts/prepare.py Pillow ${{ matrix.variant }}
+          python scripts/stage.py Pillow variant
+          python -m pip install -r Pillow/.ci/requirements-cibw.txt
+      - name: Pin restored Linux container
+        if: matrix.variant != 'no-jxl' && runner.os == 'Linux'
+        shell: bash
+        run: echo "CIBW_MANYLINUX_${{ fromJSON(inputs.target).arch == 'x86_64' && 'X86_64' || 'AARCH64' }}_IMAGE=$(cat Pillow/dependency-bundle/image.ref)" >> "$GITHUB_ENV"
+      - name: Prepare Windows JPEG XL sources
+        if: matrix.variant != 'no-jxl' && runner.os == 'Windows'
+        shell: pwsh
+        run: python Pillow/winbuild/build_prepare.py --no-imagequant --architecture=AMD64
+      - name: Build JPEG XL variant (Unix)
+        if: matrix.variant != 'no-jxl' && runner.os != 'Windows'
+        working-directory: Pillow
+        run: python -m cibuildwheel --output-dir ../wheelhouse
+      - name: Build JPEG XL variant (Windows)
+        if: matrix.variant != 'no-jxl' && runner.os == 'Windows'
+        shell: cmd
+        working-directory: Pillow
+        env:
+          CIBW_BEFORE_ALL: '{package}\size_experiment\windows_deps.cmd'
+        run: |
+          call winbuild\build\build_env.cmd
+          if errorlevel 1 exit /b 1
+          python -m cibuildwheel --output-dir ..\wheelhouse
+      - name: Measure wheel before testing
+        run: python scripts/measure.py wheelhouse sizes.json --variant ${{ matrix.variant }} --platform ${{ fromJSON(inputs.target).name }}
+      - name: Record variant patch
+        if: always() && matrix.variant != 'no-jxl'
+        shell: bash
+        run: git -C Pillow diff > variant.patch
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wheel-${{ fromJSON(inputs.target).name }}-${{ matrix.variant }}
+          path: |
+            wheelhouse/*.whl
+            sizes.json
+            variant.patch
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 30
+  tests:
+    name: Test ${{ matrix.variant }} (${{ fromJSON(inputs.target).name }})
+    needs: variants
+    if: always() && (needs.variants.result == 'success' || needs.variants.result == 'failure')
+    runs-on: ${{ fromJSON(inputs.target).os }}
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        variant: ${{ fromJSON(inputs.variants) }}
+    env:
+      EXPERIMENT_PLATFORM: ${{ fromJSON(inputs.target).name }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: olokelo/Pillow
+          ref: d00ba3a89faabd31fd92c3b506c86557da8c0a0b
+          path: Pillow
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/download-artifact@v4
+        with:
+          name: wheel-${{ fromJSON(inputs.target).name }}-${{ matrix.variant }}
+          path: built
+      - name: Install wheel and test dependencies
+        shell: bash
+        run: |
+          python scripts/prepare.py Pillow ${{ matrix.variant }}
+          python -m pip install built/wheelhouse/*.whl numpy
+          python -c 'import subprocess,sys,tomllib; p=tomllib.load(open("Pillow/pyproject.toml","rb")); subprocess.check_call([sys.executable,"-m","pip","install",*p["project"]["optional-dependencies"]["tests"]])'
+      - name: Test saved wheel
+        run: python scripts/test_wheel.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tests-${{ fromJSON(inputs.target).name }}-${{ matrix.variant }}
+          path: |
+            Pillow/size_experiment/verification.json
+            Pillow/size_experiment/tests.xml
+          retention-days: 30

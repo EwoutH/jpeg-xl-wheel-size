@@ -1,0 +1,33 @@
+name: Staged wheel size experiment
+on:
+  workflow_dispatch:
+    inputs:
+      targets:
+        description: Comma-separated target names, or all
+        default: all
+      variants:
+        description: JSON list of variants
+        default: '["no-jxl", "pr", "decoder", "minsize", "lto", "scalar"]'
+permissions:
+  contents: read
+jobs:
+  plan:
+    runs-on: ubuntu-24.04
+    outputs:
+      targets: ${{ steps.plan.outputs.targets }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: plan
+        env:
+          SELECTED: ${{ inputs.targets }}
+        run: python scripts/plan.py >> "$GITHUB_OUTPUT"
+  platform:
+    needs: plan
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.plan.outputs.targets) }}
+    uses: ./.github/workflows/platform.yml
+    with:
+      target: ${{ toJSON(matrix) }}
+      variants: ${{ inputs.variants }}

@@ -4,3 +4,6 @@ artifacts/
 __pycache__/
 .venv/
 scratch/
+dependency-bundle/
+wheelhouse/
+sizes.json
