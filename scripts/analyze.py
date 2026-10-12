@@ -26,8 +26,9 @@ def main():
     parser.add_argument("--repack", action="store_true")
     args = parser.parse_args()
     rows = []
-    for path in args.artifacts.rglob("sizes.json"):
+    for path in sorted(args.artifacts.rglob("sizes.json")):
         rows.extend(json.loads(path.read_text()))
+    rows = list({(row["platform"], row["variant"]): row for row in rows}.values())
     assert rows, "No measurements found"
     order = {name: index for index, name in enumerate(("no-jxl", "pr", "decoder", "minsize", "lto", "scalar"))}
     rows.sort(key=lambda row: (row["platform"], order[row["variant"]]))
@@ -41,7 +42,7 @@ def main():
         lines.append(f'| {row["platform"]} | {row["variant"]} | {row["bytes"] / 1048576:.3f} | {row["installed_bytes"] / 1048576:.3f} | {change} | {overhead} |')
     lines += ["", "## Decoding checks", "", "The workflow asserts JPEG XL availability and runs selftest plus the JPEG XL, JPEG and PNG tests. Pixel hashes below compare each variant against PR on the same architecture. A hash difference needs investigation; matching hashes cover these samples only.", ""]
     verification = {}
-    for path in args.artifacts.rglob("verification.json"):
+    for path in sorted(args.artifacts.rglob("verification.json")):
         result = json.loads(path.read_text())
         if result.get("platform"):
             verification[(result["platform"], result["variant"])] = result

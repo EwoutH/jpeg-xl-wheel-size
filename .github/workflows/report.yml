@@ -1,0 +1,50 @@
+name: Report saved wheel measurements
+on:
+  workflow_dispatch:
+    inputs:
+      runs:
+        description: Comma-separated run IDs with wheel and test artifacts
+        required: true
+permissions:
+  contents: read
+  actions: read
+jobs:
+  report:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: olokelo/Pillow
+          ref: d00ba3a89faabd31fd92c3b506c86557da8c0a0b
+          path: Pillow
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Fetch saved artifacts (no builds)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EXPERIMENT_RUNS: ${{ inputs.runs }}
+        run: |
+          python - <<'PY'
+          import os, subprocess
+          for value in os.environ['EXPERIMENT_RUNS'].split(','):
+              run_id = str(int(value.strip()))
+              subprocess.run(['gh', 'run', 'download', run_id, '--repo', os.environ['GITHUB_REPOSITORY'], '--pattern', 'wheel-*', '--pattern', 'tests-*', '--dir', 'artifacts/run-' + run_id], check=True)
+          PY
+      - name: Reuse upstream size-comparison tool
+        run: |
+          python -m pip install humanize prettytable termcolor
+          python scripts/compare_upstream.py artifacts
+          python scripts/analyze.py artifacts --repack
+          cat RESULTS.md UPSTREAM-COMPARISON.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: measurement-reports
+          path: |
+            RESULTS.md
+            UPSTREAM-COMPARISON.md
+            pypi-baseline.json
