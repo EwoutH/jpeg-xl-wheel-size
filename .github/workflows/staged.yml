@@ -1,4 +1,4 @@
-name: Staged wheel size experiment
+name: Validate Pillow decoder-only PR
 on:
   workflow_dispatch:
     inputs:
@@ -7,7 +7,7 @@ on:
         default: all
       variants:
         description: JSON list of variants
-        default: '["no-jxl", "pr", "decoder", "minsize", "lto", "scalar"]'
+        default: '["pr"]'
       dependency_run:
         description: Optional prior run ID with successful dependency artifacts for selected platforms
         default: ''
@@ -35,4 +35,4 @@ jobs:
     with:
       target: ${{ toJSON(matrix) }}
       variants: ${{ inputs.variants }}
-      dependency_run: ${{ inputs.dependency_run }}
+      dependency_run: ${{ fromJSON('{"linux-x86_64":"38309406995","linux-aarch64":"38308512861","macos-x86_64":"38306998901","macos-arm64":"38304925834","windows-amd64":"38306989036"}')[matrix.name] }}
