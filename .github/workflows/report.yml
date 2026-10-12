@@ -13,14 +13,14 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
           repository: olokelo/Pillow
           ref: d00ba3a89faabd31fd92c3b506c86557da8c0a0b
           path: Pillow
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
       - name: Fetch saved artifacts (no builds)
@@ -54,7 +54,7 @@ jobs:
                   dest.parent.mkdir(parents=True, exist_ok=True)
                   shutil.copyfile(path, dest)
           PY
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: measurement-reports

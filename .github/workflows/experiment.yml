@@ -53,9 +53,9 @@ jobs:
             *,all,*|*,$TARGET,*) echo "enabled=true" >> "$GITHUB_OUTPUT" ;;
             *) echo "enabled=false" >> "$GITHUB_OUTPUT" ;;
           esac
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: steps.select.outputs.enabled == 'true'
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: steps.select.outputs.enabled == 'true'
         with:
           repository: olokelo/Pillow
@@ -63,7 +63,7 @@ jobs:
           path: Pillow
           submodules: true
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         if: steps.select.outputs.enabled == 'true'
         with:
           python-version: '3.13'
@@ -109,7 +109,7 @@ jobs:
           git -C Pillow diff > experiment.patch
           git -C Pillow rev-parse HEAD > pillow-commit.txt
           python --version > python-version.txt
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always() && steps.select.outputs.enabled == 'true'
         with:
           name: ${{ matrix.target.name }}-${{ matrix.variant }}

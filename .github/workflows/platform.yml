@@ -27,15 +27,15 @@ jobs:
     runs-on: ${{ fromJSON(inputs.target).os }}
     timeout-minutes: 90
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
           repository: olokelo/Pillow
           ref: d00ba3a89faabd31fd92c3b506c86557da8c0a0b
           path: Pillow
           submodules: true
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
       - name: Identify toolchain and pin Linux container
@@ -51,7 +51,7 @@ jobs:
           else
             echo native > image.ref
           fi
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         id: cache
         if: inputs.dependency_run == ''
         with:
@@ -59,7 +59,7 @@ jobs:
           key: deps-v1-${{ fromJSON(inputs.target).name }}-${{ hashFiles('toolchain.txt', 'Pillow/.github/dependencies.json', 'Pillow/.github/workflows/wheels-dependencies.sh', 'Pillow/winbuild/build_prepare.py', 'Pillow/.ci/requirements-cibw.txt', 'Pillow/wheels/multibuild/**', 'scripts/stage.py', 'scripts/deps.py') }}
       - name: Reuse saved dependency artifact
         if: inputs.dependency_run != ''
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: dependencies-${{ fromJSON(inputs.target).name }}
           path: Pillow/dependency-bundle
@@ -102,7 +102,7 @@ jobs:
           cp image.ref toolchain.txt Pillow/dependency-bundle/
           git -C Pillow rev-parse HEAD > Pillow/dependency-bundle/pillow-commit.txt
           git -C Pillow diff > Pillow/dependency-bundle/common.patch
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always() && hashFiles('Pillow/dependency-bundle/deps.tar') != ''
         with:
           name: dependencies-${{ fromJSON(inputs.target).name }}
@@ -123,8 +123,8 @@ jobs:
       CIBW_CONFIG_SETTINGS: raqm=enable raqm=vendor fribidi=vendor imagequant=disable jpegxl=enable
       CIBW_CONFIG_SETTINGS_MACOS: raqm=enable raqm=vendor fribidi=vendor imagequant=disable platform-guessing=disable jpegxl=enable
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         if: matrix.variant != 'no-jxl'
         with:
           repository: olokelo/Pillow
@@ -132,10 +132,10 @@ jobs:
           path: Pillow
           submodules: true
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: dependencies-${{ fromJSON(inputs.target).name }}
           path: Pillow/dependency-bundle
@@ -179,7 +179,7 @@ jobs:
         if: always() && matrix.variant != 'no-jxl'
         shell: bash
         run: git -C Pillow diff > variant.patch
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: wheel-${{ fromJSON(inputs.target).name }}-${{ matrix.variant }}
@@ -203,17 +203,17 @@ jobs:
     env:
       EXPERIMENT_PLATFORM: ${{ fromJSON(inputs.target).name }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7
         with:
           repository: olokelo/Pillow
           ref: d00ba3a89faabd31fd92c3b506c86557da8c0a0b
           path: Pillow
           persist-credentials: false
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: '3.13'
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: wheel-${{ fromJSON(inputs.target).name }}-${{ matrix.variant }}
           path: built
@@ -225,7 +225,7 @@ jobs:
           python -c 'import subprocess,sys,tomllib; p=tomllib.load(open("Pillow/pyproject.toml","rb")); subprocess.check_call([sys.executable,"-m","pip","install",*p["project"]["optional-dependencies"]["tests"]])'
       - name: Test saved wheel
         run: python scripts/test_wheel.py
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: tests-${{ fromJSON(inputs.target).name }}-${{ matrix.variant }}
