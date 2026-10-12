@@ -3,8 +3,8 @@ on:
   workflow_dispatch:
     inputs:
       targets:
-        description: JSON list of target names, or [] for all
-        default: '[]'
+        description: Comma-separated target names, or all
+        default: all
       variants:
         description: JSON list of variants
         default: '["no-jxl", "pr", "decoder", "minsize", "lto", "scalar"]'
@@ -49,7 +49,10 @@ jobs:
           SELECTED: ${{ inputs.targets }}
           TARGET: ${{ matrix.target.name }}
         run: |
-          python -c 'import json, os; selected=json.loads(os.environ["SELECTED"]); print("enabled=" + str(not selected or os.environ["TARGET"] in selected).lower())' >> "$GITHUB_OUTPUT"
+          case ",$SELECTED," in
+            *,all,*|*,$TARGET,*) echo "enabled=true" >> "$GITHUB_OUTPUT" ;;
+            *) echo "enabled=false" >> "$GITHUB_OUTPUT" ;;
+          esac
       - uses: actions/checkout@v4
         if: steps.select.outputs.enabled == 'true'
       - uses: actions/checkout@v4
