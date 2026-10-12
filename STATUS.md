@@ -1,45 +1,21 @@
-# Paused after initial analysis
+# Complete
 
-User requested an initial postable analysis, then a pause. Draft: PR7848-COMMENT.md.
-No GitHub issue/PR comment was posted. CI continues independently; no additional
-monitoring or builds should be initiated until the user resumes.
+All 30 wheels across five platforms and six configurations built successfully
+and passed their selected test jobs. Deduplicated pytest totals: 5,742 passed,
+138 skipped, zero failures/errors. Five same-host decoding comparisons also
+finished successfully. No experiment work remains pending.
 
-Completed measurements: all six variants on macOS arm64, Windows AMD64 and Linux
-aarch64/x86_64. All available wheel tests pass. Saved reports are under
-artifacts/report-38309369474 locally; that report excludes the final x86_64 PR
-baseline, now downloaded under artifacts/run-38309406995. The revised comment
-includes this final result and presents percentage growth against no-jxl.
+- Final conclusions: [ANALYSIS.md](ANALYSIS.md)
+- Postable Pillow #7848 comment: [PR7848-COMMENT.md](PR7848-COMMENT.md)
+- Archived measurements, checksums, patches, tests and CI provenance:
+  [evidence/README.md](evidence/README.md)
+- Final combined report: [38312289539](https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38312289539)
+- Final figure: [PNG](figures/jpeg-xl-overhead.png) / [SVG](figures/jpeg-xl-overhead.svg)
 
-Outstanding runs at pause:
+No GitHub PR/issue comment was posted. The user can post the prepared comment.
+Large wheels remain in CI artifacts for their configured retention period;
+the small evidence archive is committed for durable access.
 
-- macOS Intel common dependencies and six variants: 38306998901.
-
-Successful build artifact sources for a combined report:
-
-- macOS arm64: 38304925834.
-- Windows: 38306989036.
-- Linux aarch64 and five Linux x86_64 variants: 38308512861.
-- Linux x86_64 PR: 38309406995, if successful.
-- macOS Intel: 38306998901, if successful.
-
-Latest report: 38309369474. New report.yml additionally preserves raw measurement
-JSON and JUnit XML, allowing them to be committed for durable evidence after all
-builds finish. Avoid compiling successful variants again. A report workflow can
-combine comma-separated source run IDs without building anything.
-
-Controlled comparisons: 38308643532 (macOS arm64), 38308639837 (Windows).
-Downloaded under artifacts/controlled-*. Decoder/minsize/LTO exactly match PR
-sample pixels on the same host. Cross-runner Windows hash differences disappear
-on the same host. Scalar changes some 8-bit channel values by at most one and
-slows flower decoding substantially. Windows size optimization also slows these
-samples; macOS LTO is close to PR. Hosted benchmark limits still apply.
-
-Harness repairs already published: portable checksum code for older container
-Python, host export for Linux archives, Windows cwd restoration, rsync installed
-before capturing fetch_unpack stdout, and PR standalone tools disabled to avoid
-a Linux x86_64 libsharpyuv PIE benchmark link failure. Library settings remain
-the PR's for that baseline. Reuse saved common artifacts for any further retry.
-
-Local checks passed: scripts/check_pipeline.py, Python syntax, new workflow YAML.
-Root Git requires -c safe.directory=C:/Users/Ewout/Documents/GitHub/jpeg-xl-wheel-size.
-The untracked root RESULTS.md is an older partial report; regenerate before use.
+Validation completed: all build/test job conclusions and the full 30-pair
+measurement/test matrix checked, member-size totals checked, pipeline/archive
+checks passed, Python scripts compile, and the final figure was visually reviewed.

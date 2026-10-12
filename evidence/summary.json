@@ -1,0 +1,802 @@
+{
+  "pillow_commit": "d00ba3a89faabd31fd92c3b506c86557da8c0a0b",
+  "platforms": {
+    "linux-x86_64": {
+      "no-jxl": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+        "variant": "no-jxl",
+        "platform": "linux-x86_64",
+        "bytes": 7310090,
+        "installed_bytes": 20321085,
+        "sha256": "1a55b314aa26bebcad1ae5b6a2c910a8ae7e1712de6294972793355c1ba14462",
+        "build": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115008602196"
+        },
+        "test_job": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115010255460"
+        },
+        "added_bytes": 0,
+        "growth_percent": 0.0,
+        "added_installed_bytes": 0,
+        "overhead_removed_percent": 100.0,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 20
+        }
+      },
+      "pr": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+        "variant": "pr",
+        "platform": "linux-x86_64",
+        "bytes": 9491334,
+        "installed_bytes": 25851309,
+        "sha256": "d19b7d4de103950e4472216612ff3cad087ff590e0cb7823f243f3a74ae955ce",
+        "build": {
+          "run": 38309406995,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38309406995/job/115011552161"
+        },
+        "test_job": {
+          "run": 38309406995,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38309406995/job/115013000673"
+        },
+        "added_bytes": 2181244,
+        "growth_percent": 29.838811834054034,
+        "added_installed_bytes": 5530224,
+        "overhead_removed_percent": 0.0,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      },
+      "decoder": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+        "variant": "decoder",
+        "platform": "linux-x86_64",
+        "bytes": 8048771,
+        "installed_bytes": 22242612,
+        "sha256": "0dfead7c0112ceb866b4924d7486e0ff88dced35685e87072f182a5d058b54ce",
+        "build": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115008602170"
+        },
+        "test_job": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115010255848"
+        },
+        "added_bytes": 738681,
+        "growth_percent": 10.104950828238767,
+        "added_installed_bytes": 1921527,
+        "overhead_removed_percent": 66.13487532802382,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      },
+      "minsize": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+        "variant": "minsize",
+        "platform": "linux-x86_64",
+        "bytes": 7795648,
+        "installed_bytes": 21644964,
+        "sha256": "6242733e5b730bf7cf2798950d52aa860dac5636a1a5e9798f0380595e87a705",
+        "build": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115008602195"
+        },
+        "test_job": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115010255503"
+        },
+        "added_bytes": 485558,
+        "growth_percent": 6.642298521632428,
+        "added_installed_bytes": 1323879,
+        "overhead_removed_percent": 77.73940008545583,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      },
+      "lto": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+        "variant": "lto",
+        "platform": "linux-x86_64",
+        "bytes": 7714639,
+        "installed_bytes": 21395331,
+        "sha256": "5b3e39da45f711fd99d69aa5ac058df5fc207d01e56746b89ffa3fd4b2676766",
+        "build": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115008602284"
+        },
+        "test_job": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115010255470"
+        },
+        "added_bytes": 404549,
+        "growth_percent": 5.534117910996983,
+        "added_installed_bytes": 1074246,
+        "overhead_removed_percent": 81.4532899574738,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      },
+      "scalar": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+        "variant": "scalar",
+        "platform": "linux-x86_64",
+        "bytes": 7615033,
+        "installed_bytes": 21088323,
+        "sha256": "1b6d51d331efd1782322947e78a446e7bef1c1bed7f1a54d461b0b3d424b8218",
+        "build": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115008602217"
+        },
+        "test_job": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115010255534"
+        },
+        "added_bytes": 304943,
+        "growth_percent": 4.171535507770763,
+        "added_installed_bytes": 767238,
+        "overhead_removed_percent": 86.01976670193706,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      }
+    },
+    "linux-aarch64": {
+      "no-jxl": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+        "variant": "no-jxl",
+        "platform": "linux-aarch64",
+        "bytes": 6720431,
+        "installed_bytes": 21414055,
+        "sha256": "42db661e05a13ee937a93722a1ca7a68f65aa34cb2cfb9cabbb7c75aeff3b8b0",
+        "build": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115008623173"
+        },
+        "test_job": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115009774497"
+        },
+        "added_bytes": 0,
+        "growth_percent": 0.0,
+        "added_installed_bytes": 0,
+        "overhead_removed_percent": 100.0,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 20
+        }
+      },
+      "pr": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+        "variant": "pr",
+        "platform": "linux-aarch64",
+        "bytes": 8386598,
+        "installed_bytes": 26546915,
+        "sha256": "b7c7b4a46c57aef2788d5b05b464d8eaf48646664bb27570d7f84bde53911734",
+        "build": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115008623220"
+        },
+        "test_job": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115009774555"
+        },
+        "added_bytes": 1666167,
+        "growth_percent": 24.79256166754782,
+        "added_installed_bytes": 5132860,
+        "overhead_removed_percent": 0.0,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      },
+      "decoder": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+        "variant": "decoder",
+        "platform": "linux-aarch64",
+        "bytes": 7270652,
+        "installed_bytes": 23524001,
+        "sha256": "2e4b7c0188357520c995e115d513ad3b39114a01f524b1c8ff1eec433ee444e4",
+        "build": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115008623286"
+        },
+        "test_job": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115009774538"
+        },
+        "added_bytes": 550221,
+        "growth_percent": 8.187287392728226,
+        "added_installed_bytes": 2109946,
+        "overhead_removed_percent": 66.97683965652902,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      },
+      "minsize": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+        "variant": "minsize",
+        "platform": "linux-aarch64",
+        "bytes": 7100200,
+        "installed_bytes": 23131193,
+        "sha256": "75b80e82c569baa1625c38f6acf537a42acdeff4e04488d28f1d955a079fb735",
+        "build": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115008623158"
+        },
+        "test_job": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115009774580"
+        },
+        "added_bytes": 379769,
+        "growth_percent": 5.6509619695522595,
+        "added_installed_bytes": 1717138,
+        "overhead_removed_percent": 77.20702666659464,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      },
+      "lto": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+        "variant": "lto",
+        "platform": "linux-aarch64",
+        "bytes": 7042840,
+        "installed_bytes": 22934816,
+        "sha256": "2c54af731357ace8d213156a5a994c665d6c796f83261755c5cc1361aabf4b21",
+        "build": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115008623204"
+        },
+        "test_job": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115009774419"
+        },
+        "added_bytes": 322409,
+        "growth_percent": 4.797445282899271,
+        "added_installed_bytes": 1520761,
+        "overhead_removed_percent": 80.64965876769857,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      },
+      "scalar": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-manylinux_2_27_aarch64.manylinux_2_28_aarch64.whl",
+        "variant": "scalar",
+        "platform": "linux-aarch64",
+        "bytes": 7030476,
+        "installed_bytes": 22869472,
+        "sha256": "0b4a3f208b24b94be8589c07851e9da6619aa8cbdadc8412cd58d52839a51151",
+        "build": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115008623073"
+        },
+        "test_job": {
+          "run": 38308512861,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38308512861/job/115009774612"
+        },
+        "added_bytes": 310045,
+        "growth_percent": 4.613468987331326,
+        "added_installed_bytes": 1455417,
+        "overhead_removed_percent": 81.39172123802716,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      }
+    },
+    "macos-x86_64": {
+      "no-jxl": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-macosx_10_13_x86_64.whl",
+        "variant": "no-jxl",
+        "platform": "macos-x86_64",
+        "bytes": 5539107,
+        "installed_bytes": 13471643,
+        "sha256": "50e322d037091a30f9b2e0fff80bf6f555b172c235b3a70a0242443b882163aa",
+        "build": {
+          "run": 38306998901,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306998901/job/115014669565"
+        },
+        "test_job": {
+          "run": 38306998901,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306998901/job/115017996199"
+        },
+        "added_bytes": 0,
+        "growth_percent": 0.0,
+        "added_installed_bytes": 0,
+        "overhead_removed_percent": 100.0,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 19
+        }
+      },
+      "pr": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-macosx_10_13_x86_64.whl",
+        "variant": "pr",
+        "platform": "macos-x86_64",
+        "bytes": 7805017,
+        "installed_bytes": 19796820,
+        "sha256": "8510e2e731c63574a1c74f26d8c90fcc935fb859aaafebde704065b8dbc8070f",
+        "build": {
+          "run": 38306998901,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306998901/job/115014669543"
+        },
+        "test_job": {
+          "run": 38306998901,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306998901/job/115017996205"
+        },
+        "added_bytes": 2265910,
+        "growth_percent": 40.90749646107214,
+        "added_installed_bytes": 6325177,
+        "overhead_removed_percent": 0.0,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 1
+        }
+      },
+      "decoder": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-macosx_10_13_x86_64.whl",
+        "variant": "decoder",
+        "platform": "macos-x86_64",
+        "bytes": 6259845,
+        "installed_bytes": 15688185,
+        "sha256": "b358aaf7456d08f1b14954329824e245a71a57f61511376da24a0185186a95a7",
+        "build": {
+          "run": 38306998901,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306998901/job/115014670197"
+        },
+        "test_job": {
+          "run": 38306998901,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306998901/job/115017996145"
+        },
+        "added_bytes": 720738,
+        "growth_percent": 13.011808582141482,
+        "added_installed_bytes": 2216542,
+        "overhead_removed_percent": 68.1921170743763,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 1
+        }
+      },
+      "minsize": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-macosx_10_13_x86_64.whl",
+        "variant": "minsize",
+        "platform": "macos-x86_64",
+        "bytes": 6038441,
+        "installed_bytes": 15082825,
+        "sha256": "e3e8a3f5cf83f6896d4c08026db4681d422097ffff02354dd41c4d371d5729fa",
+        "build": {
+          "run": 38306998901,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306998901/job/115014669743"
+        },
+        "test_job": {
+          "run": 38306998901,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306998901/job/115017996280"
+        },
+        "added_bytes": 499334,
+        "growth_percent": 9.014702189360136,
+        "added_installed_bytes": 1611182,
+        "overhead_removed_percent": 77.96320242198499,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 1
+        }
+      },
+      "lto": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-macosx_10_13_x86_64.whl",
+        "variant": "lto",
+        "platform": "macos-x86_64",
+        "bytes": 5955471,
+        "installed_bytes": 14701577,
+        "sha256": "328ea2c174a7793f8b522298b0f6dddfd5e6122ffd74f89d25a3f085326f66da",
+        "build": {
+          "run": 38306998901,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306998901/job/115014669624"
+        },
+        "test_job": {
+          "run": 38306998901,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306998901/job/115017996218"
+        },
+        "added_bytes": 416364,
+        "growth_percent": 7.516807312081175,
+        "added_installed_bytes": 1229934,
+        "overhead_removed_percent": 81.6248659478973,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 1
+        }
+      },
+      "scalar": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-macosx_10_13_x86_64.whl",
+        "variant": "scalar",
+        "platform": "macos-x86_64",
+        "bytes": 5826577,
+        "installed_bytes": 14187592,
+        "sha256": "97c3ef870aa5f9ae1e0eee6357af6c2989af740bb150ab6b3732d1a9ff5d236a",
+        "build": {
+          "run": 38306998901,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306998901/job/115014669591"
+        },
+        "test_job": {
+          "run": 38306998901,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306998901/job/115017996181"
+        },
+        "added_bytes": 287470,
+        "growth_percent": 5.189825724615904,
+        "added_installed_bytes": 715949,
+        "overhead_removed_percent": 87.31326486930196,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 1
+        }
+      }
+    },
+    "macos-arm64": {
+      "no-jxl": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-macosx_11_0_arm64.whl",
+        "variant": "no-jxl",
+        "platform": "macos-arm64",
+        "bytes": 4786366,
+        "installed_bytes": 11914220,
+        "sha256": "3b92757bc994d34292509b2f87940d9ef510facc820f76ba658fa3db8aa2d5e8",
+        "build": {
+          "run": 38304925834,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38304925834/job/115000486977"
+        },
+        "test_job": {
+          "run": 38304925834,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38304925834/job/115002185804"
+        },
+        "added_bytes": 0,
+        "growth_percent": 0.0,
+        "added_installed_bytes": 0,
+        "overhead_removed_percent": 100.0,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 19
+        }
+      },
+      "pr": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-macosx_11_0_arm64.whl",
+        "variant": "pr",
+        "platform": "macos-arm64",
+        "bytes": 6180620,
+        "installed_bytes": 15523349,
+        "sha256": "d918646b4effb2060f117bd3405a21e4f1edc7312c6cbc805fa6c35cab934fec",
+        "build": {
+          "run": 38304925834,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38304925834/job/115000487376"
+        },
+        "test_job": {
+          "run": 38304925834,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38304925834/job/115002185742"
+        },
+        "added_bytes": 1394254,
+        "growth_percent": 29.129698815343417,
+        "added_installed_bytes": 3609129,
+        "overhead_removed_percent": 0.0,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 1
+        }
+      },
+      "decoder": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-macosx_11_0_arm64.whl",
+        "variant": "decoder",
+        "platform": "macos-arm64",
+        "bytes": 5235809,
+        "installed_bytes": 13237050,
+        "sha256": "91347c0c8ae724041ae6d728bd0bf8ce9d99684ca763421ea75676d736142aef",
+        "build": {
+          "run": 38304925834,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38304925834/job/115000486984"
+        },
+        "test_job": {
+          "run": 38304925834,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38304925834/job/115002185683"
+        },
+        "added_bytes": 449443,
+        "growth_percent": 9.390067537668445,
+        "added_installed_bytes": 1322830,
+        "overhead_removed_percent": 67.76462538389706,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 1
+        }
+      },
+      "minsize": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-macosx_11_0_arm64.whl",
+        "variant": "minsize",
+        "platform": "macos-arm64",
+        "bytes": 5122676,
+        "installed_bytes": 12983833,
+        "sha256": "91cf934e81e636003744c2ed0cf9cadc23314d0df66bed3276f2079a79bb7eb4",
+        "build": {
+          "run": 38304925834,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38304925834/job/115000487246"
+        },
+        "test_job": {
+          "run": 38304925834,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38304925834/job/115002185752"
+        },
+        "added_bytes": 336310,
+        "growth_percent": 7.0264162832512245,
+        "added_installed_bytes": 1069613,
+        "overhead_removed_percent": 75.87885708056065,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 1
+        }
+      },
+      "lto": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-macosx_11_0_arm64.whl",
+        "variant": "lto",
+        "platform": "macos-arm64",
+        "bytes": 5069880,
+        "installed_bytes": 12773705,
+        "sha256": "88903dbb3bf82ac2e9940596c0c4ff31282731b57cd358c6359f758986e0ae72",
+        "build": {
+          "run": 38304925834,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38304925834/job/115000486992"
+        },
+        "test_job": {
+          "run": 38304925834,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38304925834/job/115002185948"
+        },
+        "added_bytes": 283514,
+        "growth_percent": 5.923366495583493,
+        "added_installed_bytes": 859485,
+        "overhead_removed_percent": 79.66554157276938,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 1
+        }
+      },
+      "scalar": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-macosx_11_0_arm64.whl",
+        "variant": "scalar",
+        "platform": "macos-arm64",
+        "bytes": 5047441,
+        "installed_bytes": 12667353,
+        "sha256": "eb82f068bcbb3035d1a1e597bee81858166bd2ff7a44d420c305e16555f315ba",
+        "build": {
+          "run": 38304925834,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38304925834/job/115000487011"
+        },
+        "test_job": {
+          "run": 38304925834,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38304925834/job/115002185774"
+        },
+        "added_bytes": 261075,
+        "growth_percent": 5.454555710950637,
+        "added_installed_bytes": 753133,
+        "overhead_removed_percent": 81.27493268801811,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 1
+        }
+      }
+    },
+    "windows-amd64": {
+      "no-jxl": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-win_amd64.whl",
+        "variant": "no-jxl",
+        "platform": "windows-amd64",
+        "bytes": 7122494,
+        "installed_bytes": 14746265,
+        "sha256": "1249f9abd2d28249a04f5af2a6fb4c23f348154ed06ab71e992086ff66056058",
+        "build": {
+          "run": 38306989036,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306989036/job/115003553217"
+        },
+        "test_job": {
+          "run": 38306989036,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306989036/job/115005592714"
+        },
+        "added_bytes": 0,
+        "growth_percent": 0.0,
+        "added_installed_bytes": 0,
+        "overhead_removed_percent": 100.0,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 20
+        }
+      },
+      "pr": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-win_amd64.whl",
+        "variant": "pr",
+        "platform": "windows-amd64",
+        "bytes": 7726252,
+        "installed_bytes": 16228596,
+        "sha256": "8e24419ba85a91a7b6eaf0ba38840b7fade8649e967886867e48095741d143c9",
+        "build": {
+          "run": 38306989036,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306989036/job/115003553232"
+        },
+        "test_job": {
+          "run": 38306989036,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306989036/job/115005592689"
+        },
+        "added_bytes": 603758,
+        "growth_percent": 8.476777937615676,
+        "added_installed_bytes": 1482331,
+        "overhead_removed_percent": 0.0,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      },
+      "decoder": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-win_amd64.whl",
+        "variant": "decoder",
+        "platform": "windows-amd64",
+        "bytes": 7726248,
+        "installed_bytes": 16228596,
+        "sha256": "ff32d73c01e8900ad162aaecadf8740784329c93e8700b07da9f3619b7bfd54c",
+        "build": {
+          "run": 38306989036,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306989036/job/115003553337"
+        },
+        "test_job": {
+          "run": 38306989036,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306989036/job/115005592667"
+        },
+        "added_bytes": 603754,
+        "growth_percent": 8.476721777512196,
+        "added_installed_bytes": 1482331,
+        "overhead_removed_percent": 0.0006625171012242248,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      },
+      "minsize": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-win_amd64.whl",
+        "variant": "minsize",
+        "platform": "windows-amd64",
+        "bytes": 7615164,
+        "installed_bytes": 15950580,
+        "sha256": "6d8808b3e73e2ec635d0ee2cdb586b094a39ec96c1b7a57aae6da18d2eafad51",
+        "build": {
+          "run": 38306989036,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306989036/job/115003553261"
+        },
+        "test_job": {
+          "run": 38306989036,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306989036/job/115005592690"
+        },
+        "added_bytes": 492670,
+        "growth_percent": 6.917099544064209,
+        "added_installed_bytes": 1204315,
+        "overhead_removed_percent": 18.39942493515614,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      },
+      "lto": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-win_amd64.whl",
+        "variant": "lto",
+        "platform": "windows-amd64",
+        "bytes": 7615195,
+        "installed_bytes": 15920884,
+        "sha256": "6418ef10e706ccf1fdf185c74608386e44c3acfd0293142f73ccebeefe752a9e",
+        "build": {
+          "run": 38306989036,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306989036/job/115003553293"
+        },
+        "test_job": {
+          "run": 38306989036,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306989036/job/115005592708"
+        },
+        "added_bytes": 492701,
+        "growth_percent": 6.917534784866097,
+        "added_installed_bytes": 1174619,
+        "overhead_removed_percent": 18.394290427621662,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      },
+      "scalar": {
+        "wheel": "pillow-13.0.0.dev0-cp313-cp313-win_amd64.whl",
+        "variant": "scalar",
+        "platform": "windows-amd64",
+        "bytes": 7537329,
+        "installed_bytes": 15657715,
+        "sha256": "3a76ef2be2ab21394f760ba316f57fe68758c76ea62362e9f5186c84bcec02f1",
+        "build": {
+          "run": 38306989036,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306989036/job/115003553314"
+        },
+        "test_job": {
+          "run": 38306989036,
+          "job_url": "https://github.com/EwoutH/jpeg-xl-wheel-size/actions/runs/38306989036/job/115005592719"
+        },
+        "added_bytes": 414835,
+        "growth_percent": 5.824294130679508,
+        "added_installed_bytes": 911450,
+        "overhead_removed_percent": 31.29117957857287,
+        "tests": {
+          "tests": 196,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 2
+        }
+      }
+    }
+  },
+  "pytest_totals": {
+    "tests": 5880,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 138,
+    "passed": 5742
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "variant": "no-jxl",
+  "platform": "macos-arm64",
+  "jpegxl": false,
+  "files": []
+}

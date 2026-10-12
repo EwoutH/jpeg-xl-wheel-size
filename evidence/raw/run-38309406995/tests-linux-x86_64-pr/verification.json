@@ -1,0 +1,67 @@
+{
+  "variant": "pr",
+  "platform": "linux-x86_64",
+  "jpegxl": true,
+  "files": [
+    {
+      "name": "hopper.jxl",
+      "mode": "RGB",
+      "size": [
+        128,
+        128
+      ],
+      "sha256": "0bbf1bfcaae126aea6561401c2bfb26a514ff0281271b5afdc6d636ba354b8a6",
+      "median_seconds": 0.0009206779999999526
+    },
+    {
+      "name": "hopper_gray.jxl",
+      "mode": "L",
+      "size": [
+        128,
+        128
+      ],
+      "sha256": "f44d26f91eb3b9a5443c99cdfae0632157392de1508c2e2c3ab9171f8f40330a",
+      "median_seconds": 0.0008295100000005107
+    },
+    {
+      "name": "transparent.jxl",
+      "mode": "RGBA",
+      "size": [
+        200,
+        150
+      ],
+      "sha256": "980efef46c8ff10e03b339886c50d519e78b9d5138b091ca6f3438f6225332c1",
+      "median_seconds": 0.008399471499999579
+    },
+    {
+      "name": "flower.jxl",
+      "mode": "RGB",
+      "size": [
+        480,
+        360
+      ],
+      "sha256": "bac5cb4b2c44d285fd93b54c5e4b938ede87efbcc179671880b430eaf5c7ec1e",
+      "median_seconds": 0.003375800199999901
+    },
+    {
+      "name": "flower2.jxl",
+      "mode": "RGB",
+      "size": [
+        300,
+        225
+      ],
+      "sha256": "12bff16a836e4f8e151436fc3e90d6416c43ed0676adaaf094a03c326c91b48d",
+      "median_seconds": 0.0023254360999999334
+    },
+    {
+      "name": "16bit_subcutaneous.cropped.jxl",
+      "mode": "I;16",
+      "size": [
+        128,
+        64
+      ],
+      "sha256": "ee796f889058ca96792d1efa5b9a5ed6aa48b00c0b19171f4d7d3977cd5802d1",
+      "median_seconds": 0.0013142122000004974
+    }
+  ]
+}

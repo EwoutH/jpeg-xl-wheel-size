@@ -1,0 +1,6 @@
+{
+  "variant": "no-jxl",
+  "platform": "windows-amd64",
+  "jpegxl": false,
+  "files": []
+}

@@ -1,0 +1,212 @@
+diff --git a/.github/workflows/wheels-dependencies.sh b/.github/workflows/wheels-dependencies.sh
+index 5ce1bd2..60100d8 100755
+--- a/.github/workflows/wheels-dependencies.sh
++++ b/.github/workflows/wheels-dependencies.sh
+@@ -166,12 +166,13 @@ function build_jpegxl {
+     local highway_version=$(_get_ver highway)
+     local out_dir=$(fetch_unpack https://github.com/google/highway/archive/$highway_version.tar.gz)
+     (cd $out_dir \
+-        && cmake -DCMAKE_INSTALL_PREFIX=$BUILD_PREFIX -DCMAKE_INSTALL_LIBDIR=$BUILD_PREFIX/lib -DCMAKE_INSTALL_NAME_DIR=$BUILD_PREFIX/lib $HOST_CMAKE_FLAGS . \
++        && cmake -DCMAKE_INSTALL_PREFIX=$BUILD_PREFIX -DCMAKE_INSTALL_LIBDIR=$BUILD_PREFIX/lib -DCMAKE_INSTALL_NAME_DIR=$BUILD_PREFIX/lib -DHWY_ENABLE_TESTS=OFF -DHWY_ENABLE_EXAMPLES=OFF -DHWY_ENABLE_CONTRIB=OFF $HOST_CMAKE_FLAGS . \
+         && make -j4 install)
+ 
+     local out_dir=$(fetch_unpack https://github.com/libjxl/libjxl/archive/v$JPEGXL_VERSION.tar.gz)
++    python3 "$PROJECTDIR/size_experiment/patch_libjxl.py" "$out_dir"
+     (cd $out_dir \
+-        && cmake -DCMAKE_INSTALL_PREFIX=$BUILD_PREFIX -DCMAKE_INSTALL_LIBDIR=$BUILD_PREFIX/lib -DCMAKE_INSTALL_NAME_DIR=$BUILD_PREFIX/lib -DJPEGXL_ENABLE_SJPEG=OFF -DJPEGXL_ENABLE_SKCMS=OFF -DBUILD_TESTING=OFF $HOST_CMAKE_FLAGS . \
++        && cmake -DCMAKE_INSTALL_PREFIX=$BUILD_PREFIX -DCMAKE_INSTALL_LIBDIR=$BUILD_PREFIX/lib -DCMAKE_INSTALL_NAME_DIR=$BUILD_PREFIX/lib -DJPEGXL_ENABLE_SJPEG=OFF -DJPEGXL_ENABLE_SKCMS=OFF -DBUILD_TESTING=OFF -DJPEGXL_ENABLE_TOOLS=OFF -DJPEGXL_ENABLE_JPEGLI=OFF -DJPEGXL_ENABLE_EXAMPLES=OFF -DJPEGXL_ENABLE_BENCHMARK=OFF -DJPEGXL_ENABLE_JNI=OFF -DJPEGXL_ENABLE_DOXYGEN=OFF -DJPEGXL_ENABLE_MANPAGES=OFF -DCMAKE_BUILD_TYPE=MinSizeRel -DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON -DCMAKE_C_FLAGS=-DHWY_COMPILE_ONLY_SCALAR -DCMAKE_CXX_FLAGS=-DHWY_COMPILE_ONLY_SCALAR $HOST_CMAKE_FLAGS . \
+         && make -j4 install)
+     touch jpegxl-stamp
+ }
+@@ -266,92 +267,8 @@ function build_zstd {
+ }
+ 
+ function build {
+-    build_xz
+-    if [ -z "$IS_ALPINE" ] && [ -z "$SANITIZER" ] && [ -z "$IS_MACOS" ]; then
+-        yum remove -y zlib-devel
+-    fi
+-    if [[ -n "$IS_MACOS" ]]; then
+-        CFLAGS="$CFLAGS -headerpad_max_install_names" build_zlib_ng
+-    else
+-        build_zlib_ng
+-    fi
+-
+-    build_simple xcb-proto 1.17.0 https://xorg.freedesktop.org/archive/individual/proto
+-    if [[ -n "$IS_MACOS" ]]; then
+-        build_simple xorgproto 2025.1 https://www.x.org/pub/individual/proto
+-        build_simple libXau 1.0.12 https://www.x.org/pub/individual/lib
+-        build_simple libpthread-stubs 0.5 https://xcb.freedesktop.org/dist
+-    else
+-        sed "s/\${pc_sysrootdir\}//" $BUILD_PREFIX/share/pkgconfig/xcb-proto.pc > $BUILD_PREFIX/lib/pkgconfig/xcb-proto.pc
+-    fi
+-    build_simple libxcb $LIBXCB_VERSION https://www.x.org/releases/individual/lib
+-
+-    # -DCMAKE_POSITION_INDEPENDENT_CODE=1 is a workaround from https://github.com/libjpeg-turbo/libjpeg-turbo/issues/898
+-    HOST_CMAKE_FLAGS="-DCMAKE_POSITION_INDEPENDENT_CODE=1 $HOST_CMAKE_FLAGS" build_libjpeg_turbo
+-
+-    if [[ -n "$IS_MACOS" ]]; then
+-        # Custom tiff build to include jpeg; by default, configure won't include
+-        # headers/libs in the custom macOS/iOS prefix. Explicitly disable webp,
+-        # libdeflate and zstd, because on x86_64 macs, it will pick up the
+-        # Homebrew versions of those libraries from /usr/local.
+-        tiff_configure_args=(
+-            --disable-contrib
+-            --disable-cxx
+-            --disable-dependency-tracking
+-            --disable-docs
+-            --disable-libdeflate
+-            --disable-tests
+-            --disable-tools
+-            --disable-webp
+-            --disable-zstd
+-            --with-jpeg-include-dir=$BUILD_PREFIX/include
+-            --with-jpeg-lib-dir=$BUILD_PREFIX/lib
+-        )
+-        if [[ -z "$IOS_SDK" ]]; then
+-            # iOS links libtiff statically, but otherwise we need the dylib.
+-            tiff_configure_args+=(--disable-static)
+-        fi
+-        build_simple tiff $TIFF_VERSION https://download.osgeo.org/libtiff tar.gz \
+-            "${tiff_configure_args[@]}"
+-    else
+-        build_zstd
+-        build_tiff
+-    fi
+-
+-    build_libavif
+-    build_libpng
+-    build_lcms2
+-    build_openjpeg
+-    build_brotli
+-
+-    # FreeType and HarfBuzz each want the other:
+-    # HarfBuzz reads font data through FreeType, and FreeType's auto-hinter asks HarfBuzz which glyphs a script covers.
+-    # Break the cycle by building FreeType twice, so that the FreeType we ship is linked against the HarfBuzz we ship.
+-    build_freetype
+-
+-    if [[ -z "$IOS_SDK" ]]; then
+-        # On iOS, there's no vendor-provided raqm, and we can't ship it due to
+-        # licensing, so there's no point building harfbuzz.
+-        build_harfbuzz
+-
+-        # Now that HarfBuzz exists, build FreeType again against it.
+-        rm -rf freetype-$FREETYPE_VERSION freetype-stamp
+-        CFLAGS="$CFLAGS -DFT_CONFIG_OPTION_USE_HARFBUZZ" build_freetype
+-
+-        build_jpegxl
+-    fi
+-
+-    webp_cflags="-O3 -DNDEBUG"
+-    if [[ -n "$IS_MACOS" ]]; then
+-        webp_cflags="$webp_cflags -Wl,-headerpad_max_install_names"
+-    fi
+-    webp_ldflags=""
+-    if [[ -n "$IOS_SDK" ]]; then
+-        webp_ldflags="$webp_ldflags -llzma -lz"
+-    fi
+-    CFLAGS="$CFLAGS $webp_cflags" LDFLAGS="$LDFLAGS $webp_ldflags" build_simple libwebp $LIBWEBP_VERSION \
+-        https://storage.googleapis.com/downloads.webmproject.org/releases/webp tar.gz \
+-        --enable-libwebpmux --enable-libwebpdemux
++    install_rsync
++    build_jpegxl
+ }
+ 
+ function create_meson_cross_config {
+@@ -386,14 +303,7 @@ pushd $WORKDIR > /dev/null
+ 
+ # Any stuff that you need to do before you start building the wheels
+ # Runs in the root directory of this repository.
+-if [[ ! -d $WORKDIR/pillow-depends-main ]]; then
+-  if [[ ! -f $PROJECTDIR/pillow-depends-main.zip ]]; then
+-    echo "Download pillow dependency sources..."
+-    curl -fSL -o $PROJECTDIR/pillow-depends-main.zip https://github.com/python-pillow/pillow-depends/archive/main.zip
+-  fi
+-  echo "Unpacking pillow dependency sources..."
+-  untar $PROJECTDIR/pillow-depends-main.zip
+-fi
++python3 "$PROJECTDIR/size_experiment/deps.py" restore "$BUILD_PREFIX"
+ 
+ if [[ -n "$IS_MACOS" ]]; then
+     # Ensure the basic structure of the build prefix directory exists.
+@@ -403,7 +313,7 @@ if [[ -n "$IS_MACOS" ]]; then
+     # Ensure pkg-config is available. This is done *before* setting CC, CFLAGS
+     # etc. to ensure that the build is *always* a macOS build, even when building
+     # for iOS.
+-    build_pkg_config
++    : # pkg-config is restored from the common bundle
+ 
+     # Ensure cmake is available, and that the default prefix used by CMake is
+     # the build prefix
+diff --git a/setup.py b/setup.py
+index 540a25c..4eb4d74 100644
+--- a/setup.py
++++ b/setup.py
+@@ -793,10 +793,10 @@ class pil_build_ext(build_ext):
+             if _find_include_file(self, "jxl/decode.h") and _find_include_file(
+                 self, "jxl/thread_parallel_runner.h"
+             ):
+-                if _find_library_file(self, "jxl") and _find_library_file(
++                if _find_library_file(self, "jxl_dec") and _find_library_file(
+                     self, "jxl_threads"
+                 ):
+-                    feature.set("jpegxl", "jxl")
++                    feature.set("jpegxl", "jxl_dec")
+ 
+         if feature.want("imagequant"):
+             _dbg("Looking for imagequant")
+@@ -1023,10 +1023,10 @@ class pil_build_ext(build_ext):
+ 
+         jpegxl = feature.get("jpegxl")
+         if isinstance(jpegxl, str):
+-            libs = [jpegxl, jpegxl + "_threads"]
++            libs = [jpegxl, "jxl_threads"]
+             args: list[str] | None = None
+             if sys.platform == "win32":
+-                libs.extend(["brotlicommon", "brotlidec", "brotlienc", "hwy"])
++                libs.extend(["brotlicommon", "brotlidec", "hwy"])
+                 args = ["-DJXL_STATIC_DEFINE"]
+             self._update_extension("PIL._jpegxl", libs, args=args)
+         else:
+diff --git a/winbuild/build_prepare.py b/winbuild/build_prepare.py
+index 6be6aaa..d1bdacf 100644
+--- a/winbuild/build_prepare.py
++++ b/winbuild/build_prepare.py
+@@ -347,7 +347,18 @@ DEPS: dict[str, dict[str, Any]] = {
+         "license": "LICENSE",
+         "build": [
+             *cmds_cmake(
+-                "jxl",
++                "jxl_dec",
++                "-DJPEGXL_ENABLE_TOOLS=OFF",
++                "-DJPEGXL_ENABLE_JPEGLI=OFF",
++                "-DJPEGXL_ENABLE_EXAMPLES=OFF",
++                "-DJPEGXL_ENABLE_BENCHMARK=OFF",
++                "-DJPEGXL_ENABLE_JNI=OFF",
++                "-DJPEGXL_ENABLE_DOXYGEN=OFF",
++                "-DJPEGXL_ENABLE_MANPAGES=OFF",
++                "-DCMAKE_BUILD_TYPE=MinSizeRel",
++                "-DCMAKE_INTERPROCEDURAL_OPTIMIZATION=ON",
++                "-DCMAKE_C_FLAGS=-DHWY_COMPILE_ONLY_SCALAR",
++                "-DCMAKE_CXX_FLAGS=-DHWY_COMPILE_ONLY_SCALAR",
+                 rf"-DHWY_INCLUDE_DIR=..\highway-{V['highway']}",
+                 r"-DLCMS2_LIBRARY=..\..\lib\lcms2_static",
+                 r"-DLCMS2_INCLUDE_DIR=..\..\inc",
+@@ -357,7 +368,7 @@ DEPS: dict[str, dict[str, Any]] = {
+                 "-DBUILD_TESTING:BOOL=OFF",
+                 "-DBUILD_SHARED_LIBS:BOOL=OFF",
+             ),
+-            cmd_copy(r"lib\jxl.lib", "{lib_dir}"),
++            cmd_copy(r"lib\jxl_dec.lib", "{lib_dir}"),
+             *cmds_cmake("jxl_threads"),
+             cmd_copy(r"lib\jxl_threads.lib", "{lib_dir}"),
+             cmd_mkdir(r"{inc_dir}\jxl"),
+@@ -772,7 +783,7 @@ def main() -> None:
+     for path in [inc_dir, lib_dir, bin_dir, sources_dir, license_dir]:
+         os.makedirs(path, exist_ok=True)
+ 
+-    disabled = []
++    disabled = [name for name in DEPS if name not in ("highway", "libjxl")]
+     if args.no_imagequant:
+         disabled += ["libimagequant"]
+     if args.no_fribidi:

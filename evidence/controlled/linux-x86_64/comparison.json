@@ -1,0 +1,252 @@
+{
+  "host": {
+    "system": "Linux",
+    "node": "runnervmmprz5",
+    "release": "6.17.0-1022-azure",
+    "version": "#22-Ubuntu SMP Mon Jul 27 17:24:03 UTC 2026",
+    "machine": "x86_64",
+    "processor": "x86_64"
+  },
+  "comparisons": [
+    {
+      "variant": "pr",
+      "sample": "hopper.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 49152,
+      "time_ratio": 1.0
+    },
+    {
+      "variant": "pr",
+      "sample": "hopper_gray.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 16384,
+      "time_ratio": 1.0
+    },
+    {
+      "variant": "pr",
+      "sample": "transparent.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 120000,
+      "time_ratio": 1.0
+    },
+    {
+      "variant": "pr",
+      "sample": "flower.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 518400,
+      "time_ratio": 1.0
+    },
+    {
+      "variant": "pr",
+      "sample": "flower2.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 202500,
+      "time_ratio": 1.0
+    },
+    {
+      "variant": "pr",
+      "sample": "16bit_subcutaneous.cropped.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 8192,
+      "time_ratio": 1.0
+    },
+    {
+      "variant": "decoder",
+      "sample": "hopper.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 49152,
+      "time_ratio": 0.9834019939260397
+    },
+    {
+      "variant": "decoder",
+      "sample": "hopper_gray.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 16384,
+      "time_ratio": 1.0014639426588856
+    },
+    {
+      "variant": "decoder",
+      "sample": "transparent.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 120000,
+      "time_ratio": 1.0189752115977762
+    },
+    {
+      "variant": "decoder",
+      "sample": "flower.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 518400,
+      "time_ratio": 1.000095488785619
+    },
+    {
+      "variant": "decoder",
+      "sample": "flower2.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 202500,
+      "time_ratio": 1.0172725490726693
+    },
+    {
+      "variant": "decoder",
+      "sample": "16bit_subcutaneous.cropped.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 8192,
+      "time_ratio": 1.0002659111336185
+    },
+    {
+      "variant": "minsize",
+      "sample": "hopper.jxl",
+      "maximum": 1.0,
+      "changed": 1,
+      "channels": 49152,
+      "time_ratio": 1.0479508791435803
+    },
+    {
+      "variant": "minsize",
+      "sample": "hopper_gray.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 16384,
+      "time_ratio": 1.065619133297837
+    },
+    {
+      "variant": "minsize",
+      "sample": "transparent.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 120000,
+      "time_ratio": 1.1043910631363636
+    },
+    {
+      "variant": "minsize",
+      "sample": "flower.jxl",
+      "maximum": 1.0,
+      "changed": 4,
+      "channels": 518400,
+      "time_ratio": 1.0552009762779435
+    },
+    {
+      "variant": "minsize",
+      "sample": "flower2.jxl",
+      "maximum": 1.0,
+      "changed": 1,
+      "channels": 202500,
+      "time_ratio": 1.0843385215759551
+    },
+    {
+      "variant": "minsize",
+      "sample": "16bit_subcutaneous.cropped.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 8192,
+      "time_ratio": 1.0668997114976075
+    },
+    {
+      "variant": "lto",
+      "sample": "hopper.jxl",
+      "maximum": 1.0,
+      "changed": 1,
+      "channels": 49152,
+      "time_ratio": 1.0596065938715984
+    },
+    {
+      "variant": "lto",
+      "sample": "hopper_gray.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 16384,
+      "time_ratio": 1.0626940071924191
+    },
+    {
+      "variant": "lto",
+      "sample": "transparent.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 120000,
+      "time_ratio": 1.0708170737274874
+    },
+    {
+      "variant": "lto",
+      "sample": "flower.jxl",
+      "maximum": 1.0,
+      "changed": 4,
+      "channels": 518400,
+      "time_ratio": 1.0911833785172833
+    },
+    {
+      "variant": "lto",
+      "sample": "flower2.jxl",
+      "maximum": 1.0,
+      "changed": 1,
+      "channels": 202500,
+      "time_ratio": 1.1018115867749323
+    },
+    {
+      "variant": "lto",
+      "sample": "16bit_subcutaneous.cropped.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 8192,
+      "time_ratio": 1.0545111549324822
+    },
+    {
+      "variant": "scalar",
+      "sample": "hopper.jxl",
+      "maximum": 1.0,
+      "changed": 736,
+      "channels": 49152,
+      "time_ratio": 2.022889360800631
+    },
+    {
+      "variant": "scalar",
+      "sample": "hopper_gray.jxl",
+      "maximum": 1.0,
+      "changed": 218,
+      "channels": 16384,
+      "time_ratio": 1.7380184457009602
+    },
+    {
+      "variant": "scalar",
+      "sample": "transparent.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 120000,
+      "time_ratio": 1.1296493840699147
+    },
+    {
+      "variant": "scalar",
+      "sample": "flower.jxl",
+      "maximum": 1.0,
+      "changed": 8132,
+      "channels": 518400,
+      "time_ratio": 3.7909018830303185
+    },
+    {
+      "variant": "scalar",
+      "sample": "flower2.jxl",
+      "maximum": 1.0,
+      "changed": 3027,
+      "channels": 202500,
+      "time_ratio": 3.7781546042283916
+    },
+    {
+      "variant": "scalar",
+      "sample": "16bit_subcutaneous.cropped.jxl",
+      "maximum": 0.0,
+      "changed": 0,
+      "channels": 8192,
+      "time_ratio": 1.1142563665715521
+    }
+  ]
+}

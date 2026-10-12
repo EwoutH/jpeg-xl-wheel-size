@@ -1,0 +1,727 @@
+[
+  {
+    "wheel": "pillow-13.0.0.dev0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+    "variant": "minsize",
+    "platform": "linux-x86_64",
+    "bytes": 7795648,
+    "installed_bytes": 21644964,
+    "sha256": "6242733e5b730bf7cf2798950d52aa860dac5636a1a5e9798f0380595e87a705",
+    "members": [
+      {
+        "name": "pillow.libs/libavif-c6062d5f.so.16.4.2",
+        "compressed": 2289778,
+        "installed": 4918457
+      },
+      {
+        "name": "PIL/_imaging.cpython-313-x86_64-linux-gnu.so",
+        "compressed": 1111034,
+        "installed": 3420337
+      },
+      {
+        "name": "pillow.libs/libXau-154567c4.so.6.0.0",
+        "compressed": 9598,
+        "installed": 2100545
+      },
+      {
+        "name": "pillow.libs/libharfbuzz-fb49c9fc.so.0.61450.0",
+        "compressed": 692766,
+        "installed": 1529553
+      },
+      {
+        "name": "pillow.libs/libjxl_dec-8d093ba5.so.0.11.2",
+        "compressed": 458576,
+        "installed": 1233961
+      },
+      {
+        "name": "pillow.libs/libfreetype-57f805ba.so.6.20.6",
+        "compressed": 524808,
+        "installed": 1179825
+      },
+      {
+        "name": "pillow.libs/libjpeg-d1a0424d.so.62.4.0",
+        "compressed": 262208,
+        "installed": 859489
+      },
+      {
+        "name": "pillow.libs/libzstd-40ad5e7e.so.1.5.7",
+        "compressed": 347213,
+        "installed": 815025
+      },
+      {
+        "name": "pillow.libs/libwebp-51b0b3f7.so.7.2.0",
+        "compressed": 357613,
+        "installed": 745233
+      },
+      {
+        "name": "pillow.libs/libtiff-20b7e810.so.6.3.0",
+        "compressed": 222675,
+        "installed": 617449
+      },
+      {
+        "name": "pillow.libs/libopenjp2-ca8c24db.so.2.5.4",
+        "compressed": 202270,
+        "installed": 476905
+      },
+      {
+        "name": "pillow.libs/liblcms2-88eaba2f.so.2.0.19",
+        "compressed": 185356,
+        "installed": 422689
+      },
+      {
+        "name": "PIL/_imagingft.cpython-313-x86_64-linux-gnu.so",
+        "compressed": 124105,
+        "installed": 345257
+      },
+      {
+        "name": "pillow.libs/libxcb-9065bb12.so.1.1.0",
+        "compressed": 51391,
+        "installed": 228569
+      },
+      {
+        "name": "pillow.libs/libpng16-1d1ba958.so.16.58.0",
+        "compressed": 111103,
+        "installed": 226481
+      },
+      {
+        "name": "pillow.libs/liblzma-de26b416.so.5.8.4",
+        "compressed": 102578,
+        "installed": 202625
+      },
+      {
+        "name": "PIL/_imagingcms.cpython-313-x86_64-linux-gnu.so",
+        "compressed": 51167,
+        "installed": 159625
+      },
+      {
+        "name": "PIL/Image.py",
+        "compressed": 38810,
+        "installed": 153701
+      },
+      {
+        "name": "pillow.libs/libbrotlicommon-53534446.so.1.2.0",
+        "compressed": 65739,
+        "installed": 146089
+      },
+      {
+        "name": "PIL/_imagingmath.cpython-313-x86_64-linux-gnu.so",
+        "compressed": 36771,
+        "installed": 142344
+      },
+      {
+        "name": "PIL/_webp.cpython-313-x86_64-linux-gnu.so",
+        "compressed": 35408,
+        "installed": 106505
+      },
+      {
+        "name": "PIL/_avif.cpython-313-x86_64-linux-gnu.so",
+        "compressed": 33406,
+        "installed": 97873
+      },
+      {
+        "name": "PIL/TiffImagePlugin.py",
+        "compressed": 22571,
+        "installed": 86021
+      },
+      {
+        "name": "pillow-13.0.0.dev0.dist-info/licenses/LICENSE",
+        "compressed": 17773,
+        "installed": 73165
+      },
+      {
+        "name": "pillow.libs/libbrotlidec-7e5462ba.so.1.2.0",
+        "compressed": 26679,
+        "installed": 68105
+      },
+      {
+        "name": "pillow.libs/libwebpmux-8fb1c9f6.so.3.1.2",
+        "compressed": 22350,
+        "installed": 65921
+      },
+      {
+        "name": "PIL/_jpegxl.cpython-313-x86_64-linux-gnu.so",
+        "compressed": 19732,
+        "installed": 65257
+      },
+      {
+        "name": "PIL/ImageFont.py",
+        "compressed": 21944,
+        "installed": 63837
+      },
+      {
+        "name": "PIL/PngImagePlugin.py",
+        "compressed": 12637,
+        "installed": 53753
+      },
+      {
+        "name": "pillow.libs/libsharpyuv-0066295b.so.0.1.2",
+        "compressed": 20423,
+        "installed": 47841
+      },
+      {
+        "name": "PIL/_imagingtk.cpython-313-x86_64-linux-gnu.so",
+        "compressed": 17880,
+        "installed": 47296
+      },
+      {
+        "name": "PIL/ImageCms.py",
+        "compressed": 9098,
+        "installed": 40163
+      },
+      {
+        "name": "PIL/GifImagePlugin.py",
+        "compressed": 9721,
+        "installed": 39580
+      },
+      {
+        "name": "PIL/_imagingmorph.cpython-313-x86_64-linux-gnu.so",
+        "compressed": 14221,
+        "installed": 39424
+      },
+      {
+        "name": "PIL/PdfParser.py",
+        "compressed": 8884,
+        "installed": 39299
+      },
+      {
+        "name": "pillow.libs/libwebpdemux-9fe2abcc.so.2.0.17",
+        "compressed": 8900,
+        "installed": 35985
+      },
+      {
+        "name": "PIL/ImageDraw.py",
+        "compressed": 7913,
+        "installed": 35407
+      },
+      {
+        "name": "PIL/JpegImagePlugin.py",
+        "compressed": 9767,
+        "installed": 31742
+      },
+      {
+        "name": "PIL/ImageFile.py",
+        "compressed": 8268,
+        "installed": 29929
+      },
+      {
+        "name": "PIL/ImageOps.py",
+        "compressed": 6789,
+        "installed": 26692
+      },
+      {
+        "name": "pillow.libs/libjxl_threads-b4549d57.so.0.11.2",
+        "compressed": 6610,
+        "installed": 24353
+      },
+      {
+        "name": "PIL/BmpImagePlugin.py",
+        "compressed": 5368,
+        "installed": 20335
+      },
+      {
+        "name": "PIL/DdsImagePlugin.py",
+        "compressed": 5190,
+        "installed": 19182
+      },
+      {
+        "name": "PIL/ImageFilter.py",
+        "compressed": 4997,
+        "installed": 18937
+      },
+      {
+        "name": "PIL/ImageText.py",
+        "compressed": 4515,
+        "installed": 18657
+      },
+      {
+        "name": "PIL/TiffTags.py",
+        "compressed": 6120,
+        "installed": 17323
+      },
+      {
+        "name": "PIL/EpsImagePlugin.py",
+        "compressed": 5535,
+        "installed": 17133
+      },
+      {
+        "name": "PIL/BlpImagePlugin.py",
+        "compressed": 4071,
+        "installed": 16529
+      },
+      {
+        "name": "PIL/Jpeg2KImagePlugin.py",
+        "compressed": 4372,
+        "installed": 14935
+      },
+      {
+        "name": "PIL/IcoImagePlugin.py",
+        "compressed": 4607,
+        "installed": 13817
+      },
+      {
+        "name": "PIL/IcnsImagePlugin.py",
+        "compressed": 3918,
+        "installed": 12479
+      },
+      {
+        "name": "PIL/PpmImagePlugin.py",
+        "compressed": 3459,
+        "installed": 12433
+      },
+      {
+        "name": "PIL/JpegPresets.py",
+        "compressed": 1896,
+        "installed": 12371
+      },
+      {
+        "name": "PIL/ImImagePlugin.py",
+        "compressed": 3753,
+        "installed": 11832
+      },
+      {
+        "name": "pillow-13.0.0.dev0.dist-info/RECORD",
+        "compressed": 6454,
+        "installed": 11786
+      },
+      {
+        "name": "PIL/features.py",
+        "compressed": 2789,
+        "installed": 10947
+      },
+      {
+        "name": "PIL/ImageShow.py",
+        "compressed": 2759,
+        "installed": 10406
+      },
+      {
+        "name": "PIL/ImageMorph.py",
+        "compressed": 2977,
+        "installed": 10388
+      },
+      {
+        "name": "PIL/ImageMath.py",
+        "compressed": 2410,
+        "installed": 10347
+      },
+      {
+        "name": "PIL/SpiderImagePlugin.py",
+        "compressed": 3459,
+        "installed": 10294
+      },
+      {
+        "name": "PIL/WebPImagePlugin.py",
+        "compressed": 3150,
+        "installed": 10075
+      },
+      {
+        "name": "PIL/ImagePalette.py",
+        "compressed": 2936,
+        "installed": 10056
+      },
+      {
+        "name": "PIL/ExifTags.py",
+        "compressed": 3542,
+        "installed": 9918
+      },
+      {
+        "name": "PIL/ImageColor.py",
+        "compressed": 3126,
+        "installed": 9488
+      },
+      {
+        "name": "PIL/AvifImagePlugin.py",
+        "compressed": 2978,
+        "installed": 9419
+      },
+      {
+        "name": "PIL/PdfImagePlugin.py",
+        "compressed": 2797,
+        "installed": 9173
+      },
+      {
+        "name": "pillow-13.0.0.dev0.dist-info/METADATA",
+        "compressed": 2327,
+        "installed": 9123
+      },
+      {
+        "name": "PIL/QoiImagePlugin.py",
+        "compressed": 2207,
+        "installed": 9020
+      },
+      {
+        "name": "PIL/PsdImagePlugin.py",
+        "compressed": 2737,
+        "installed": 8896
+      },
+      {
+        "name": "PIL/PalmImagePlugin.py",
+        "compressed": 2429,
+        "installed": 8822
+      },
+      {
+        "name": "PIL/ImageTk.py",
+        "compressed": 2541,
+        "installed": 8172
+      },
+      {
+        "name": "PIL/ImageWin.py",
+        "compressed": 2451,
+        "installed": 8098
+      },
+      {
+        "name": "PIL/ImageGrab.py",
+        "compressed": 2386,
+        "installed": 8096
+      },
+      {
+        "name": "PIL/TgaImagePlugin.py",
+        "compressed": 2335,
+        "installed": 7826
+      },
+      {
+        "name": "PIL/FpxImagePlugin.py",
+        "compressed": 2545,
+        "installed": 7509
+      },
+      {
+        "name": "PIL/PSDraw.py",
+        "compressed": 2694,
+        "installed": 7496
+      },
+      {
+        "name": "PIL/ImageDraw2.py",
+        "compressed": 1860,
+        "installed": 7275
+      },
+      {
+        "name": "PIL/ImageChops.py",
+        "compressed": 1600,
+        "installed": 7077
+      },
+      {
+        "name": "PIL/ImageQt.py",
+        "compressed": 2652,
+        "installed": 7055
+      },
+      {
+        "name": "PIL/PcfFontFile.py",
+        "compressed": 2270,
+        "installed": 7009
+      },
+      {
+        "name": "PIL/MpoImagePlugin.py",
+        "compressed": 2492,
+        "installed": 6997
+      },
+      {
+        "name": "PIL/IptcImagePlugin.py",
+        "compressed": 2286,
+        "installed": 6491
+      },
+      {
+        "name": "PIL/SgiImagePlugin.py",
+        "compressed": 2339,
+        "installed": 6462
+      },
+      {
+        "name": "PIL/PcxImagePlugin.py",
+        "compressed": 2423,
+        "installed": 6444
+      },
+      {
+        "name": "PIL/MspImagePlugin.py",
+        "compressed": 2332,
+        "installed": 6142
+      },
+      {
+        "name": "PIL/WalImageFile.py",
+        "compressed": 2162,
+        "installed": 5847
+      },
+      {
+        "name": "PIL/ImageStat.py",
+        "compressed": 1775,
+        "installed": 5507
+      },
+      {
+        "name": "PIL/WmfImagePlugin.py",
+        "compressed": 1864,
+        "installed": 5309
+      },
+      {
+        "name": "PIL/FitsImagePlugin.py",
+        "compressed": 1656,
+        "installed": 5074
+      },
+      {
+        "name": "PIL/XpmImagePlugin.py",
+        "compressed": 1708,
+        "installed": 4957
+      },
+      {
+        "name": "PIL/FliImagePlugin.py",
+        "compressed": 1777,
+        "installed": 4916
+      },
+      {
+        "name": "PIL/ContainerIO.py",
+        "compressed": 1415,
+        "installed": 4647
+      },
+      {
+        "name": "PIL/SunImagePlugin.py",
+        "compressed": 1655,
+        "installed": 4625
+      },
+      {
+        "name": "PIL/_imagingcms.pyi",
+        "compressed": 986,
+        "installed": 4433
+      },
+      {
+        "name": "PIL/FontFile.py",
+        "compressed": 1440,
+        "installed": 4323
+      },
+      {
+        "name": "PIL/GimpGradientFile.py",
+        "compressed": 1465,
+        "installed": 4027
+      },
+      {
+        "name": "PIL/ImageTransform.py",
+        "compressed": 1399,
+        "installed": 3964
+      },
+      {
+        "name": "PIL/JpegXlImagePlugin.py",
+        "compressed": 1292,
+        "installed": 3829
+      },
+      {
+        "name": "PIL/FtexImagePlugin.py",
+        "compressed": 1461,
+        "installed": 3713
+      },
+      {
+        "name": "PIL/ImageEnhance.py",
+        "compressed": 1120,
+        "installed": 3582
+      },
+      {
+        "name": "PIL/XbmImagePlugin.py",
+        "compressed": 1335,
+        "installed": 3342
+      },
+      {
+        "name": "PIL/BdfFontFile.py",
+        "compressed": 1341,
+        "installed": 3260
+      },
+      {
+        "name": "PIL/GbrImagePlugin.py",
+        "compressed": 1197,
+        "installed": 3065
+      },
+      {
+        "name": "PIL/GdImageFile.py",
+        "compressed": 1311,
+        "installed": 2932
+      },
+      {
+        "name": "PIL/CurImagePlugin.py",
+        "compressed": 1027,
+        "installed": 2747
+      },
+      {
+        "name": "PIL/MicImagePlugin.py",
+        "compressed": 1070,
+        "installed": 2720
+      },
+      {
+        "name": "PIL/ImtImagePlugin.py",
+        "compressed": 1005,
+        "installed": 2665
+      },
+      {
+        "name": "PIL/_binary.py",
+        "compressed": 598,
+        "installed": 2613
+      },
+      {
+        "name": "PIL/ImageMode.py",
+        "compressed": 858,
+        "installed": 2395
+      },
+      {
+        "name": "PIL/DcxImagePlugin.py",
+        "compressed": 1061,
+        "installed": 2318
+      },
+      {
+        "name": "PIL/ImageSequence.py",
+        "compressed": 954,
+        "installed": 2317
+      },
+      {
+        "name": "PIL/XVThumbImagePlugin.py",
+        "compressed": 992,
+        "installed": 2126
+      },
+      {
+        "name": "PIL/MpegImagePlugin.py",
+        "compressed": 854,
+        "installed": 2091
+      },
+      {
+        "name": "PIL/_deprecate.py",
+        "compressed": 752,
+        "installed": 2067
+      },
+      {
+        "name": "PIL/__init__.py",
+        "compressed": 739,
+        "installed": 2060
+      },
+      {
+        "name": "PIL/McIdasImagePlugin.py",
+        "compressed": 872,
+        "installed": 1908
+      },
+      {
+        "name": "PIL/GimpPaletteFile.py",
+        "compressed": 845,
+        "installed": 1888
+      },
+      {
+        "name": "PIL/_imagingft.pyi",
+        "compressed": 512,
+        "installed": 1833
+      },
+      {
+        "name": "PIL/PixarImagePlugin.py",
+        "compressed": 887,
+        "installed": 1794
+      },
+      {
+        "name": "PIL/PcdImagePlugin.py",
+        "compressed": 792,
+        "installed": 1774
+      },
+      {
+        "name": "PIL/GribStubImagePlugin.py",
+        "compressed": 719,
+        "installed": 1704
+      },
+      {
+        "name": "PIL/Hdf5StubImagePlugin.py",
+        "compressed": 721,
+        "installed": 1686
+      },
+      {
+        "name": "PIL/BufrStubImagePlugin.py",
+        "compressed": 709,
+        "installed": 1675
+      },
+      {
+        "name": "PIL/TarIO.py",
+        "compressed": 738,
+        "installed": 1640
+      },
+      {
+        "name": "pillow-13.0.0.dev0.dist-info/sboms/auditwheel.cdx.json",
+        "compressed": 363,
+        "installed": 1418
+      },
+      {
+        "name": "PIL/PaletteFile.py",
+        "compressed": 657,
+        "installed": 1296
+      },
+      {
+        "name": "PIL/_typing.py",
+        "compressed": 494,
+        "installed": 955
+      },
+      {
+        "name": "PIL/_imaging.pyi",
+        "compressed": 267,
+        "installed": 893
+      },
+      {
+        "name": "PIL/_util.py",
+        "compressed": 372,
+        "installed": 684
+      },
+      {
+        "name": "PIL/_tkinter_finder.py",
+        "compressed": 319,
+        "installed": 538
+      },
+      {
+        "name": "PIL/ImagePath.py",
+        "compressed": 256,
+        "installed": 371
+      },
+      {
+        "name": "pillow-13.0.0.dev0.dist-info/WHEEL",
+        "compressed": 115,
+        "installed": 152
+      },
+      {
+        "name": "PIL/__main__.py",
+        "compressed": 98,
+        "installed": 133
+      },
+      {
+        "name": "PIL/report.py",
+        "compressed": 79,
+        "installed": 100
+      },
+      {
+        "name": "PIL/_version.py",
+        "compressed": 83,
+        "installed": 92
+      },
+      {
+        "name": "PIL/_avif.pyi",
+        "compressed": 63,
+        "installed": 63
+      },
+      {
+        "name": "PIL/_imagingmath.pyi",
+        "compressed": 63,
+        "installed": 63
+      },
+      {
+        "name": "PIL/_imagingmorph.pyi",
+        "compressed": 63,
+        "installed": 63
+      },
+      {
+        "name": "PIL/_imagingtk.pyi",
+        "compressed": 63,
+        "installed": 63
+      },
+      {
+        "name": "PIL/_jpegxl.pyi",
+        "compressed": 63,
+        "installed": 63
+      },
+      {
+        "name": "PIL/_webp.pyi",
+        "compressed": 63,
+        "installed": 63
+      },
+      {
+        "name": "pillow-13.0.0.dev0.dist-info/top_level.txt",
+        "compressed": 6,
+        "installed": 4
+      },
+      {
+        "name": "PIL/py.typed",
+        "compressed": 2,
+        "installed": 0
+      }
+    ]
+  }
+]

@@ -1,0 +1,6 @@
+{
+  "variant": "no-jxl",
+  "platform": "linux-aarch64",
+  "jpegxl": false,
+  "files": []
+}

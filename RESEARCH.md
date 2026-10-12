@@ -1,5 +1,10 @@
 # JPEG XL wheel-size research
 
+The experiment is complete. See [ANALYSIS.md](ANALYSIS.md) for the measured
+results, decisions and qualifications, and [evidence](evidence/README.md) for
+all 30 successful build/test pairs and five same-host comparisons. The options
+below record the research rationale; measured findings take precedence.
+
 ## Question and controls
 
 Can Pillow include the read-only JPEG XL implementation in PR #7848 with a
@@ -21,7 +26,7 @@ percentage to Pillow's whole release matrix.
    The Unix recipes install the full shared library, so encoder API exports can
    retain code that Pillow never calls. Windows already uses static archives
    and can discard unreferenced objects, so a smaller improvement is expected
-   there. This is a hypothesis until wheels and tests complete.
+   there. The final measurements confirm this size difference between platforms.
 2. **Optimize libjxl for size.** Compare `MinSizeRel` against the decoder-only
    build. This changes libjxl compilation, rather than degrading other Pillow
    codecs. Compilers may trade decoding speed for smaller code.

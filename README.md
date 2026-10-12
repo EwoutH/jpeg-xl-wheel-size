@@ -1,5 +1,16 @@
 # Pillow JPEG XL wheel-size experiments
 
+**Complete:** 30 wheels across five platforms, all selected test jobs passing.
+Decoder-only linking removes 66–68% of JPEG XL's added Linux/macOS download
+cost; MinSizeRel + LTO removes about 80–82%, with platform-specific decoding
+tradeoffs. ZIP level 9 separately saves 3.0–3.7% on Linux.
+
+- [Final analysis](ANALYSIS.md), including size, pixels, performance and limits
+- [Postable comment for Pillow #7848](PR7848-COMMENT.md)
+- [Figure](figures/jpeg-xl-overhead.png) and [editable SVG](figures/jpeg-xl-overhead.svg)
+- [Archived evidence](evidence/README.md), [all measurements](RESULTS.md) and
+  [comparisons using Pillow #9621](UPSTREAM-COMPARISON.md)
+
 This repository measures the cost of adding JPEG XL decoding to Pillow. It builds
 real CPython 3.13 wheels on Linux (manylinux x86_64 and aarch64), macOS (Intel and
 Apple Silicon), and Windows (AMD64), using Pillow's own dependency recipes and

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "hopper.jxl",
+    "mode": "RGB",
+    "size": [
+      128,
+      128
+    ],
+    "sha256": "89151d13e06a08b3a557cf7092222a82744034200081db29133ff44f8484e841",
+    "seconds": 0.0008813422000002902
+  },
+  {
+    "name": "hopper_gray.jxl",
+    "mode": "L",
+    "size": [
+      128,
+      128
+    ],
+    "sha256": "b893735ce30b16aa50007e8995f4c7940e33525cb159d27c61a060d460b0e198",
+    "seconds": 0.000788542099999745
+  },
+  {
+    "name": "transparent.jxl",
+    "mode": "RGBA",
+    "size": [
+      200,
+      150
+    ],
+    "sha256": "980efef46c8ff10e03b339886c50d519e78b9d5138b091ca6f3438f6225332c1",
+    "seconds": 0.006707155399999465
+  },
+  {
+    "name": "flower.jxl",
+    "mode": "RGB",
+    "size": [
+      480,
+      360
+    ],
+    "sha256": "9d12f91644543a18a09c113a08af83634a7b5f2054d5130f0353f427df202ed8",
+    "seconds": 0.0037437406999998755
+  },
+  {
+    "name": "flower2.jxl",
+    "mode": "RGB",
+    "size": [
+      300,
+      225
+    ],
+    "sha256": "ee499546eec8975a422d013b9d42a59c8e732a7d505bf3c427a86d0cb299e2cd",
+    "seconds": 0.0030471592999987253
+  },
+  {
+    "name": "16bit_subcutaneous.cropped.jxl",
+    "mode": "I;16",
+    "size": [
+      128,
+      64
+    ],
+    "sha256": "ee796f889058ca96792d1efa5b9a5ed6aa48b00c0b19171f4d7d3977cd5802d1",
+    "seconds": 0.001070390200001725
+  }
+]
