@@ -30,9 +30,12 @@ jobs:
         run: |
           python - <<'PY'
           import os, subprocess
+          from pathlib import Path
           for value in os.environ['EXPERIMENT_RUNS'].split(','):
               run_id = str(int(value.strip()))
               subprocess.run(['gh', 'run', 'download', run_id, '--repo', os.environ['GITHUB_REPOSITORY'], '--pattern', 'wheel-*', '--pattern', 'tests-*', '--dir', 'artifacts/run-' + run_id], check=True)
+              metadata = subprocess.check_output(['gh', 'run', 'view', run_id, '--repo', os.environ['GITHUB_REPOSITORY'], '--json', 'databaseId,headSha,createdAt,updatedAt,status,conclusion,url,jobs,workflowName'])
+              Path('artifacts/run-' + run_id + '/run.json').write_bytes(metadata)
           PY
       - name: Reuse upstream size-comparison tool
         run: |
@@ -45,7 +48,7 @@ jobs:
           python - <<'PY'
           from pathlib import Path
           import shutil
-          for name in ('sizes.json', 'verification.json', 'tests.xml'):
+          for name in ('sizes.json', 'verification.json', 'tests.xml', 'variant.patch', 'run.json'):
               for path in Path('artifacts').rglob(name):
                   dest = Path('measurements') / path.relative_to('artifacts')
                   dest.parent.mkdir(parents=True, exist_ok=True)

@@ -27,8 +27,12 @@ def main():
     parser.add_argument("--repack", action="store_true")
     args = parser.parse_args()
     rows = []
+    wheel_paths = {}
     for path in sorted(args.artifacts.rglob("sizes.json")):
-        rows.extend(json.loads(path.read_text()))
+        current = json.loads(path.read_text())
+        rows.extend(current)
+        for row in current:
+            wheel_paths[(row["platform"], row["variant"])] = path.parent / "wheelhouse" / row["wheel"]
     rows = list({(row["platform"], row["variant"]): row for row in rows}.values())
     assert rows, "No measurements found"
     order = {name: index for index, name in enumerate(("no-jxl", "pr", "decoder", "minsize", "lto", "scalar"))}
@@ -67,15 +71,21 @@ def main():
             lines.append(f'  Differing samples: {", ".join(differences)}.')
     lines += ["", "Hosted runners differ: timing ratios are exploratory, not controlled performance benchmarks."]
     lines += ["", "## Saved pytest results", "", "Counts include optional-dependency skips. Availability assertions and Pillow selftest are separate workflow steps.", "", "| Artifact | Tests | Failures | Errors | Skipped |", "| --- | ---: | ---: | ---: | ---: |"]
+    test_paths = {}
     for path in sorted(args.artifacts.rglob("tests.xml")):
+        check = path.with_name("verification.json")
+        result = json.loads(check.read_text()) if check.exists() else {}
+        key = (result.get("platform", path.parent.name), result.get("variant", "unknown"))
+        test_paths[key] = path
+    for key, path in sorted(test_paths.items()):
         root = ET.parse(path).getroot()
         suites = [root] if root.tag == "testsuite" else list(root.findall("testsuite"))
         counts = [sum(int(s.get(key, 0)) for s in suites) for key in ("tests", "failures", "errors", "skipped")]
         lines.append(f'| {path.parent.name} | ' + " | ".join(map(str, counts)) + " |")
     if args.repack:
         lines += ["", "## ZIP compression level 9", "", "Repacked wheel contents are byte-for-byte identical, including RECORD. Installed size is unchanged.", "", "| Wheel | Saved KiB | Saved % |", "| --- | ---: | ---: |"]
-        for path in sorted(args.artifacts.rglob("*.whl")):
-            if "repacked" in path.parts:
+        for key, path in sorted(wheel_paths.items()):
+            if not path.exists():
                 continue
             result = repack(path, path.parent / "repacked" / path.name)
             lines.append(f'| {path.relative_to(args.artifacts)} | {result["saved_bytes"] / 1024:.1f} | {100 * result["saved_bytes"] / result["original_bytes"]:.2f}% |')

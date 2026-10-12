@@ -6,4 +6,4 @@ __pycache__/
 scratch/
 dependency-bundle/
 wheelhouse/
-sizes.json
+/sizes.json
