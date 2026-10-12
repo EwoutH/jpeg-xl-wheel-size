@@ -87,6 +87,11 @@ comparisons; `pypi-baseline.json` records the release and fetch date.
 verified ZIP recompression measurements. The PyPI comparison includes other
 Pillow changes; use the same-commit baseline to isolate JPEG XL's cost.
 
+The **Compare decoding from saved wheels** workflow installs each saved variant
+in a separate directory and compares samples sequentially on one runner. This
+quantifies channel differences and reduces CPU variation in timing comparisons.
+It also performs no compilation. Supply a build run, target and matching runner.
+
 Run `python scripts/check_pipeline.py` locally after checking out the pinned
 Pillow source to validate stage partitioning and dependency archive integrity.
 

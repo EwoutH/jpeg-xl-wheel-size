@@ -40,6 +40,17 @@ jobs:
           python scripts/compare_upstream.py artifacts
           python scripts/analyze.py artifacts --repack
           cat RESULTS.md UPSTREAM-COMPARISON.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Preserve small raw measurements
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import shutil
+          for name in ('sizes.json', 'verification.json', 'tests.xml'):
+              for path in Path('artifacts').rglob(name):
+                  dest = Path('measurements') / path.relative_to('artifacts')
+                  dest.parent.mkdir(parents=True, exist_ok=True)
+                  shutil.copyfile(path, dest)
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -48,3 +59,4 @@ jobs:
             RESULTS.md
             UPSTREAM-COMPARISON.md
             pypi-baseline.json
+            measurements/
