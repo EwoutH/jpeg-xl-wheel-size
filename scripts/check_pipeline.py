@@ -29,6 +29,7 @@ with tempfile.TemporaryDirectory(prefix="jxl-pipeline-") as temp:
                 assert body.strip() == "build_jpegxl\n}"
                 assert "pillow-depends/archive/main.zip" not in native
                 assert "deps.py\" restore" in native
+                assert "-DHWY_ENABLE_TESTS=OFF" in native
             compile((tree / "setup.py").read_text(), "setup.py", "exec")
             compile((tree / "winbuild/build_prepare.py").read_text(), "build_prepare.py", "exec")
     bundle_root = root / "bundle-check"

@@ -30,6 +30,12 @@ if args.stage == "common":
     replace(win, "    disabled = []\n", '    disabled = ["libjxl"]\n')
 else:
     text = native.read_text()
+    highway_start = text.index('function build_jpegxl {\n')
+    highway_end = text.index('    local out_dir=$(fetch_unpack https://github.com/libjxl/', highway_start)
+    highway = text[highway_start:highway_end]
+    assert highway.count('$HOST_CMAKE_FLAGS .') == 1
+    highway = highway.replace('$HOST_CMAKE_FLAGS .', '-DHWY_ENABLE_TESTS=OFF -DHWY_ENABLE_EXAMPLES=OFF -DHWY_ENABLE_CONTRIB=OFF $HOST_CMAKE_FLAGS .')
+    text = text[:highway_start] + highway + text[highway_end:]
     start = text.index("function build {\n")
     end = text.index("\nfunction create_meson_cross_config", start)
     text = text[:start] + "function build {\n    build_jpegxl\n}\n" + text[end:]
