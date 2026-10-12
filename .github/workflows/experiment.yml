@@ -1,6 +1,13 @@
 name: Wheel size experiment
 on:
   workflow_dispatch:
+    inputs:
+      targets:
+        description: JSON list of target names, or [] for all
+        default: '[]'
+      variants:
+        description: JSON list of variants
+        default: '["no-jxl", "pr", "decoder", "minsize", "lto", "scalar"]'
 permissions:
   contents: read
 jobs:
@@ -9,7 +16,7 @@ jobs:
       fail-fast: false
       max-parallel: 10
       matrix:
-        variant: [no-jxl, pr, decoder, minsize, lto, scalar]
+        variant: ${{ fromJSON(inputs.variants) }}
         target:
           - {name: linux-x86_64, os: ubuntu-24.04, arch: x86_64, platform: linux, build: cp313-manylinux_x86_64}
           - {name: linux-aarch64, os: ubuntu-24.04-arm, arch: aarch64, platform: linux, build: cp313-manylinux_aarch64}
@@ -35,8 +42,18 @@ jobs:
         Tests/test_file_jxl_metadata.py Tests/test_file_jpeg.py Tests/test_file_png.py
       MACOSX_DEPLOYMENT_TARGET: ${{ matrix.target.arch == 'arm64' && '11.0' || '10.13' }}
     steps:
+      - name: Select targets
+        id: select
+        shell: bash
+        env:
+          SELECTED: ${{ inputs.targets }}
+          TARGET: ${{ matrix.target.name }}
+        run: |
+          python -c 'import json, os; selected=json.loads(os.environ["SELECTED"]); print("enabled=" + str(not selected or os.environ["TARGET"] in selected).lower())' >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
+        if: steps.select.outputs.enabled == 'true'
       - uses: actions/checkout@v4
+        if: steps.select.outputs.enabled == 'true'
         with:
           repository: olokelo/Pillow
           ref: d00ba3a89faabd31fd92c3b506c86557da8c0a0b
@@ -44,44 +61,53 @@ jobs:
           submodules: true
           persist-credentials: false
       - uses: actions/setup-python@v5
+        if: steps.select.outputs.enabled == 'true'
         with:
           python-version: '3.13'
       - name: Patch experiment
+        if: steps.select.outputs.enabled == 'true'
         run: python scripts/prepare.py Pillow ${{ matrix.variant }}
       - name: Install build frontend
+        if: steps.select.outputs.enabled == 'true'
         run: python -m pip install -r Pillow/.ci/requirements-cibw.txt
       - name: Prepare Windows dependencies
-        if: runner.os == 'Windows'
+        if: steps.select.outputs.enabled == 'true' && runner.os == 'Windows'
         shell: pwsh
         run: |
           choco install nasm --no-progress -y
           "C:\Program Files\NASM" | Out-File -FilePath $env:GITHUB_PATH -Append
           python Pillow/winbuild/build_prepare.py --no-imagequant --architecture=AMD64
       - name: Build Unix wheels
-        if: runner.os != 'Windows'
+        if: steps.select.outputs.enabled == 'true' && runner.os != 'Windows'
         working-directory: Pillow
         run: python -m cibuildwheel --output-dir ../wheelhouse
       - name: Build Windows wheels
-        if: runner.os == 'Windows'
+        if: steps.select.outputs.enabled == 'true' && runner.os == 'Windows'
         shell: cmd
         working-directory: Pillow
         env:
           CIBW_BEFORE_ALL: '{package}\winbuild\build\build_dep_all.cmd'
+          CIBW_TEST_COMMAND: >-
+            cd /d {project} && python selftest.py &&
+            python size_experiment/verify.py &&
+            python -m pytest -v -ra Tests/test_file_jxl.py Tests/test_file_jxl_animated.py
+            Tests/test_file_jxl_metadata.py Tests/test_file_jpeg.py Tests/test_file_png.py
         run: |
           call winbuild\build\build_env.cmd
           if errorlevel 1 exit /b 1
           python -m cibuildwheel --output-dir ..\wheelhouse
       - name: Record wheel sizes
+        if: steps.select.outputs.enabled == 'true'
         run: python scripts/measure.py wheelhouse sizes.json --variant ${{ matrix.variant }} --platform ${{ matrix.target.name }}
       - name: Record provenance
-        if: always()
+        if: always() && steps.select.outputs.enabled == 'true'
         shell: bash
         run: |
           git -C Pillow diff > experiment.patch
           git -C Pillow rev-parse HEAD > pillow-commit.txt
           python --version > python-version.txt
       - uses: actions/upload-artifact@v4
-        if: always()
+        if: always() && steps.select.outputs.enabled == 'true'
         with:
           name: ${{ matrix.target.name }}-${{ matrix.variant }}
           path: |
