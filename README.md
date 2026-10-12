@@ -68,6 +68,19 @@ Use the `targets` input (for example `windows-amd64` or
 `linux-x86_64,macos-arm64`) to avoid scheduling other platforms. Use `variants`
 to select a JSON list. Tests produce JUnit XML alongside pixel hashes/timings.
 
+For a retry, set `dependency_run` to a previous successful common-stage run ID
+to reuse its archived dependencies and baseline wheel without compilation.
+
+Run **Report saved wheel measurements** with comma-separated build run IDs to
+refresh results without building anything. It reuses the matching and table
+rendering functions from Pillow's own
+[PR #9621](https://github.com/python-pillow/Pillow/pull/9621), unchanged at the
+pinned source commit. `UPSTREAM-COMPARISON.md` includes PyPI and same-commit
+comparisons; `pypi-baseline.json` records the release and fetch date.
+`RESULTS.md` adds installed/member sizes, decoding checks, pytest counts and
+verified ZIP recompression measurements. The PyPI comparison includes other
+Pillow changes; use the same-commit baseline to isolate JPEG XL's cost.
+
 Run `python scripts/check_pipeline.py` locally after checking out the pinned
 Pillow source to validate stage partitioning and dependency archive integrity.
 
@@ -75,6 +88,7 @@ Research sources:
 
 - https://github.com/python-pillow/Pillow/pull/7848
 - https://github.com/python-pillow/Pillow/issues/9101
+- https://github.com/python-pillow/Pillow/pull/9621
 - https://github.com/libjxl/libjxl/blob/v0.11.2/lib/jxl.cmake
 - https://github.com/libjxl/libjxl/blob/v0.11.2/CMakeLists.txt
 - https://github.com/google/highway/blob/1.3.0/hwy/detect_targets.h

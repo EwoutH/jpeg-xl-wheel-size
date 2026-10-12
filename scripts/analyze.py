@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import zipfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
@@ -57,18 +58,27 @@ def main():
         if not result or not result["jpegxl"] or not baseline:
             continue
         hashes = {f["name"]: (f["mode"], f["size"], f["sha256"]) for f in baseline["files"]}
-        equal = all(hashes.get(f["name"]) == (f["mode"], f["size"], f["sha256"]) for f in result["files"])
+        differences = [f["name"] for f in result["files"] if hashes.get(f["name"]) != (f["mode"], f["size"], f["sha256"])]
+        equal = not differences and len(hashes) == len(result["files"])
         baseline_time = sum(f["median_seconds"] for f in baseline["files"])
         ratio = sum(f["median_seconds"] for f in result["files"]) / baseline_time
         lines.append(f'- {key[0]} / {key[1]}: pixel hashes {"match" if equal else "DIFFER"}; sum of sample median decode times {ratio:.2f}× PR.')
+        if differences:
+            lines.append(f'  Differing samples: {", ".join(differences)}.')
     lines += ["", "Hosted runners differ: timing ratios are exploratory, not controlled performance benchmarks."]
+    lines += ["", "## Saved pytest results", "", "Counts include optional-dependency skips. Availability assertions and Pillow selftest are separate workflow steps.", "", "| Artifact | Tests | Failures | Errors | Skipped |", "| --- | ---: | ---: | ---: | ---: |"]
+    for path in sorted(args.artifacts.rglob("tests.xml")):
+        root = ET.parse(path).getroot()
+        suites = [root] if root.tag == "testsuite" else list(root.findall("testsuite"))
+        counts = [sum(int(s.get(key, 0)) for s in suites) for key in ("tests", "failures", "errors", "skipped")]
+        lines.append(f'| {path.parent.name} | ' + " | ".join(map(str, counts)) + " |")
     if args.repack:
         lines += ["", "## ZIP compression level 9", "", "Repacked wheel contents are byte-for-byte identical, including RECORD. Installed size is unchanged.", "", "| Wheel | Saved KiB | Saved % |", "| --- | ---: | ---: |"]
         for path in sorted(args.artifacts.rglob("*.whl")):
             if "repacked" in path.parts:
                 continue
             result = repack(path, path.parent / "repacked" / path.name)
-            lines.append(f'| {path.parent.name}/{path.name} | {result["saved_bytes"] / 1024:.1f} | {100 * result["saved_bytes"] / result["original_bytes"]:.2f}% |')
+            lines.append(f'| {path.relative_to(args.artifacts)} | {result["saved_bytes"] / 1024:.1f} | {100 * result["saved_bytes"] / result["original_bytes"]:.2f}% |')
     args.output.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines))
 
