@@ -1,0 +1,94 @@
+name: Wheel size experiment
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  wheels:
+    strategy:
+      fail-fast: false
+      max-parallel: 10
+      matrix:
+        variant: [no-jxl, pr, decoder, minsize, lto, scalar]
+        target:
+          - {name: linux-x86_64, os: ubuntu-24.04, arch: x86_64, platform: linux, build: cp313-manylinux_x86_64}
+          - {name: linux-aarch64, os: ubuntu-24.04-arm, arch: aarch64, platform: linux, build: cp313-manylinux_aarch64}
+          - {name: macos-x86_64, os: macos-15-intel, arch: x86_64, platform: macos, build: cp313-macosx_x86_64}
+          - {name: macos-arm64, os: macos-15, arch: arm64, platform: macos, build: cp313-macosx_arm64}
+          - {name: windows-amd64, os: windows-2022, arch: AMD64, platform: windows, build: cp313-win_amd64}
+    runs-on: ${{ matrix.target.os }}
+    timeout-minutes: 90
+    env:
+      CIBW_PLATFORM: ${{ matrix.target.platform }}
+      CIBW_ARCHS: ${{ matrix.target.arch }}
+      CIBW_BUILD: ${{ matrix.target.build }}
+      CIBW_CONFIG_SETTINGS: >-
+        raqm=enable raqm=vendor fribidi=vendor imagequant=disable
+        jpegxl=${{ matrix.variant == 'no-jxl' && 'disable' || 'enable' }}
+      CIBW_CONFIG_SETTINGS_MACOS: >-
+        raqm=enable raqm=vendor fribidi=vendor imagequant=disable platform-guessing=disable
+        jpegxl=${{ matrix.variant == 'no-jxl' && 'disable' || 'enable' }}
+      CIBW_TEST_COMMAND: >-
+        cd {project} && python selftest.py &&
+        python size_experiment/verify.py &&
+        python -m pytest -v -ra Tests/test_file_jxl.py Tests/test_file_jxl_animated.py
+        Tests/test_file_jxl_metadata.py Tests/test_file_jpeg.py Tests/test_file_png.py
+      MACOSX_DEPLOYMENT_TARGET: ${{ matrix.target.arch == 'arm64' && '11.0' || '10.13' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: olokelo/Pillow
+          ref: d00ba3a89faabd31fd92c3b506c86557da8c0a0b
+          path: Pillow
+          submodules: true
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Patch experiment
+        run: python scripts/prepare.py Pillow ${{ matrix.variant }}
+      - name: Install build frontend
+        run: python -m pip install -r Pillow/.ci/requirements-cibw.txt
+      - name: Prepare Windows dependencies
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install nasm --no-progress -y
+          "C:\Program Files\NASM" | Out-File -FilePath $env:GITHUB_PATH -Append
+          python Pillow/winbuild/build_prepare.py --no-imagequant --architecture=AMD64
+      - name: Build Unix wheels
+        if: runner.os != 'Windows'
+        working-directory: Pillow
+        run: python -m cibuildwheel --output-dir ../wheelhouse
+      - name: Build Windows wheels
+        if: runner.os == 'Windows'
+        shell: cmd
+        working-directory: Pillow
+        env:
+          CIBW_BEFORE_ALL: '{package}\winbuild\build\build_dep_all.cmd'
+        run: |
+          call winbuild\build\build_env.cmd
+          if errorlevel 1 exit /b 1
+          python -m cibuildwheel --output-dir ..\wheelhouse
+      - name: Record wheel sizes
+        run: python scripts/measure.py wheelhouse sizes.json --variant ${{ matrix.variant }} --platform ${{ matrix.target.name }}
+      - name: Record provenance
+        if: always()
+        shell: bash
+        run: |
+          git -C Pillow diff > experiment.patch
+          git -C Pillow rev-parse HEAD > pillow-commit.txt
+          python --version > python-version.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ${{ matrix.target.name }}-${{ matrix.variant }}
+          path: |
+            wheelhouse/*.whl
+            sizes.json
+            Pillow/size_experiment/verification.json
+            experiment.patch
+            pillow-commit.txt
+            python-version.txt
+          retention-days: 30

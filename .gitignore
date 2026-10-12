@@ -1,0 +1,6 @@
+Pillow/
+libjxl/
+artifacts/
+__pycache__/
+.venv/
+scratch/
