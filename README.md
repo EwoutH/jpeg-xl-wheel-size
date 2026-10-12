@@ -9,6 +9,12 @@ Pillow source is pinned to `olokelo/Pillow@d00ba3a89faabd31fd92c3b506c86557da8c0
 (the head of PR python-pillow/Pillow#7848 when this experiment was prepared).
 libjxl is version 0.11.2, as specified by that commit.
 
+The staging harness skips Highway's standalone tests/examples. For the PR
+baseline it also disables standalone libjxl tools/benchmarks, whose executable
+link fails against the common non-PIE libsharpyuv archive on Linux x86_64.
+These executables are not wheel payload; the baseline's library and compiler
+settings remain those of the PR.
+
 | Variant | Change from previous variant |
 | --- | --- |
 | `no-jxl` | Same source/dependencies as `pr`, JPEG XL extension explicitly disabled |

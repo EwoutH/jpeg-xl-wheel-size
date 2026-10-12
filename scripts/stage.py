@@ -31,6 +31,11 @@ if args.stage == "common":
     replace(win, "    disabled = []\n", '    disabled = ["libjxl"]\n')
 else:
     text = native.read_text()
+    if (root / "size_experiment/variant.txt").read_text().strip() == "pr":
+        # The PR's benchmark executable fails to link against the common
+        # non-PIE libsharpyuv archive on Linux x86_64. Tools are not wheel
+        # payload; leave all libjxl library options and optimizations unchanged.
+        text = text.replace("-DJPEGXL_ENABLE_SJPEG=OFF", "-DJPEGXL_ENABLE_TOOLS=OFF -DJPEGXL_ENABLE_BENCHMARK=OFF -DJPEGXL_ENABLE_SJPEG=OFF")
     highway_start = text.index('function build_jpegxl {\n')
     highway_end = text.index('    local out_dir=$(fetch_unpack https://github.com/libjxl/', highway_start)
     highway = text[highway_start:highway_end]
