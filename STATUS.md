@@ -5,12 +5,13 @@ No GitHub issue/PR comment was posted. CI continues independently; no additional
 monitoring or builds should be initiated until the user resumes.
 
 Completed measurements: all six variants on macOS arm64, Windows AMD64 and Linux
-aarch64; five on Linux x86_64 (PR baseline pending). All available wheel tests
-pass. Saved reports are under artifacts/report-38309369474 locally.
+aarch64/x86_64. All available wheel tests pass. Saved reports are under
+artifacts/report-38309369474 locally; that report excludes the final x86_64 PR
+baseline, now downloaded under artifacts/run-38309406995. The revised comment
+includes this final result and presents percentage growth against no-jxl.
 
 Outstanding runs at pause:
 
-- Linux x86_64 PR-only retry: 38309406995. Reuses dependencies from 38306993965.
 - macOS Intel common dependencies and six variants: 38306998901.
 
 Successful build artifact sources for a combined report:
